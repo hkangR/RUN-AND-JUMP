@@ -7,7 +7,7 @@ public class PlayerAnimationTrigger : MonoBehaviour
     private Player player => GetComponentInParent<Player>();
     private void AnimationTrigger()
     {
-        Debug.Log("Attack Finish");
+        //Debug.Log("Attack Finish");
         player.AnimationTrigger();
     }
 

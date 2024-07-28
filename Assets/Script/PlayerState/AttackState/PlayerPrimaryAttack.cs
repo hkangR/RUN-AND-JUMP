@@ -59,7 +59,7 @@ public class PlayerPrimaryAttack : PlayerState
 
         if(stateTimer < 0)
         {
-            player.SetVelocity(0,0);
+            player.SetVelocity(0,rb.velocity.y);
         }
 
         if(triggerCalled)
