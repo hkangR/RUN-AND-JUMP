@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : Entity
 {
     public bool isBusy { get; private set; }
+
+    public bool canMakeMask;
+    [SerializeField] public GameObject mask;
     
     [Header("Attack details")]
     public Vector2[] attackMovement;

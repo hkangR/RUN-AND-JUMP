@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAnimationTrigger : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class PlayerAnimationTrigger : MonoBehaviour
 
     private void AttackTrigger()
     {
+        if(player.canMakeMask)
+            Instantiate(player.mask,player.attackCheck.position,Quaternion.identity);
+        
+        
         Collider2D[] colliders = Physics2D.OverlapCircleAll(player.attackCheck.position,player.attackCheckRadius);
 
         foreach(var hit in colliders)

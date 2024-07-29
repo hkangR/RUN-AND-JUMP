@@ -13,7 +13,7 @@ Shader "Custom/StencilTransparent1"
             // Stencil setup to mark pixels
             Stencil
             {
-                Ref 1
+                Ref 0
                 Comp Equal
             }
 
