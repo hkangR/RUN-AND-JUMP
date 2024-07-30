@@ -62,7 +62,7 @@ public class Enemy_Worm : Enemy
         if (canCreateMask)
         {
             Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
-            //Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
+            Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
             //Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
         }
         gameObject.SetActive(false);
