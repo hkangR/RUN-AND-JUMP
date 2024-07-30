@@ -14,7 +14,7 @@ Shader "Custom/StencilTransparent2"
             
             Stencil
             {
-                Ref 3
+                Ref 1
                 Comp Equal
             }
 

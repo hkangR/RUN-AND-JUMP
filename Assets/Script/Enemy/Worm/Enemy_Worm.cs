@@ -27,7 +27,7 @@ public class Enemy_Worm : Enemy
         moveState = new WormMoveState(this, stateMachine, "Move", this);
         battleState = new WormBattleState(this, stateMachine, "Move", this);//�������ȥ
         attackState = new WormAttackState(this, stateMachine, "Attack", this);
-        deadState = new WormDeadState(this, stateMachine, "Dead", this);
+        deadState = new WormDeadState(this, stateMachine, "Die", this);
         //stunnedState = new SkeletonStunnedState(this, stateMachine, "Stun", this);
     }
     
@@ -48,14 +48,34 @@ public class Enemy_Worm : Enemy
     {
         base.Die();
 
+        StartCoroutine("WaitForDie");
+    }
+
+    private IEnumerator WaitForDie()
+    {
+        stateMachine.ChangeState(deadState);
+
+        yield return new WaitForSeconds(0.5f);
+        
         Vector3 maskPos = transform.position;
         //stateMachine.ChangeState(deadState);
         if (canCreateMask)
         {
             Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
-            Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
-            Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
+            //Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
+            //Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
         }
         gameObject.SetActive(false);
+        
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        enemyProperty.RemoveProperty(PropertyType.HPValue,damage);
+        if (enemyProperty.hpValue <= 0) 
+        {
+            Die();
+        }
+        
     }
 }

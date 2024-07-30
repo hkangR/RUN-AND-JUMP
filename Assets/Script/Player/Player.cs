@@ -29,6 +29,8 @@ public class Player : Entity
     
     private float defaultDashSpeed;
     
+    PlayerProperty playerProperty;
+    
     #region States
     public PlayerStateMachine stateMachine { get; private set; }
     public PlayerIdleState idleState { get; private set; }
@@ -52,6 +54,8 @@ public class Player : Entity
         dashState = new PlayerDashState(this, stateMachine, "Dash");
         
         primaryAttack = new PlayerPrimaryAttack(this, stateMachine, "Attack");
+        
+        playerProperty = GetComponent<PlayerProperty>();
         
     }
     
@@ -108,5 +112,46 @@ public class Player : Entity
     }
     
     
-    
+    public override void Die() {
+        Destroy(gameObject);
+    }
+
+    public void CauseDamage(Enemy enemy) {
+        float amount;
+        if (playerProperty) {
+            amount = playerProperty.atkResult;
+        }
+        else {
+            return;
+        }
+        
+        //Debug.Log("Player attack enemy, damage: " + amount);
+        enemy.TakeDamage(amount);
+    }
+    public void TakeDamage(float damage) {
+        playerProperty.RemoveProperty(PropertyType.HPValue, damage);
+    }
+
+    //直接使用接触到的物件
+    public void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.tag == Tag.PICKABLE) {
+            PickableObject po = collision.gameObject.GetComponent<PickableObject>();
+            if (po != null) {
+                UseItem(po.itemSO);
+                po.Interact();
+                //Destroy(po.gameObject);
+            }
+        }
+    }
+
+    //使用物体
+    public void UseItem(ItemSO itemSO) {
+        switch (itemSO.itemType) {
+            case ItemType.Consumable:
+                playerProperty.UseItem(itemSO);
+                break;
+            default:
+                break;
+        }
+    }
 }

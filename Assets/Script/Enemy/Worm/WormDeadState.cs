@@ -9,12 +9,7 @@ public class WormDeadState : EnemyState
     {
         this.enemy = enemy;
     }
-        
-    public override void AnimationFinishTrigger()
-    {
-        base.AnimationFinishTrigger();
-    }
-
+    
     public override void Enter()
     {
         base.Enter();

@@ -21,6 +21,8 @@ public class Enemy : Entity
     public float attackCooldown;
     [HideInInspector] public float lastTimeAttack;
     
+    public EnemyProperty enemyProperty;
+    
     public EnemyStateMachine stateMachine { get; private set; }
     
     public string lastAnimBoolName { get; private set; }
@@ -31,6 +33,7 @@ public class Enemy : Entity
         stateMachine = new EnemyStateMachine();
 
         defaultMoveSpeed = moveSpeed;
+        enemyProperty = GetComponent<EnemyProperty>();
     }
     
     protected override void Start()
@@ -63,4 +66,27 @@ public class Enemy : Entity
     }
     
     
+    public override void Die() {
+        base.Die();
+    }
+
+    public void CauseDamage(Player player) {
+        float amount;
+        if (enemyProperty) {
+            amount = enemyProperty.atkResult;
+        }
+        else {
+            return;
+        }
+
+        player.TakeDamage(amount);
+        //Debug.Log("Player attack enemy, damage: " + amount);
+    }
+    public virtual void TakeDamage(float damage) 
+    {
+        /*enemyProperty.RemoveProperty(PropertyType.HPValue,damage);
+        if (enemyProperty.hpValue <= 0) {
+            Die();
+        }*/
+    }
 }

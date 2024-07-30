@@ -36,10 +36,11 @@ public class PlayerAnimationTrigger : MonoBehaviour
                 {
                     enemy.beAttackNum++;
                     enemy.StartCoroutine("FlashFX");
+                    player.CauseDamage(enemy);
                 }
             }
             
-            Debug.Log("Attacking Something");
+            //Debug.Log("Attacking Something");
         }
     }
 }

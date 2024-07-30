@@ -29,12 +29,11 @@ public class WormBattleState : EnemyState
 
     public override void Update()
     {
-        Debug.Log("battleState");
         base.Update();
 
         if(enemy.IsPlayerDetected())
         {
-            Debug.Log("found player");
+            //Debug.Log("found player");
             stateTimer = enemy.battleTime;
             if(enemy.IsPlayerDetected().distance < enemy.attackDistance)
             {
@@ -42,6 +41,7 @@ public class WormBattleState : EnemyState
                     stateMachine.ChangeState(enemy.attackState);
               
             }
+            
         }
         else
         {
@@ -53,20 +53,14 @@ public class WormBattleState : EnemyState
 
         if(player.position.x > enemy.transform.position.x)
         {
-            Debug.Log("FLIP");
             moveDir = 1; 
         }   
         else if(player.position.x <enemy.transform .position.x)
         {
-            Debug.Log("Flip 2");
             moveDir = -1;
         }
-
-        if (Vector2.Distance(player.position, enemy.transform.position) > 0.2)
-        {
-            Debug.Log("move to player");
-            enemy.SetVelocity(enemy.moveSpeed * moveDir, rb.velocity.y);
-        }
+        
+        enemy.SetVelocity(enemy.moveSpeed * moveDir, rb.velocity.y);
     }
 
     private bool CanAttack()
