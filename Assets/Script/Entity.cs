@@ -13,6 +13,13 @@ public class Entity : MonoBehaviour
     //public CharacterStats stats { get; private set; }
     #endregion
     
+    [Header("Flash FX")]
+    [SerializeField] private float flashDuration;
+    [SerializeField] private Material hitMat;
+    private Material originalMat;
+    
+    
+    
     [Header("Collision info")]
     public Transform attackCheck;
     public float attackCheckRadius;
@@ -39,9 +46,28 @@ public class Entity : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
         //fx = GetComponent<EntityFX>();
         //stats = GetComponent<CharacterStats>();
+        //sr = GetComponentInChildren<SpriteRenderer>();
+        originalMat = sr.material;
     }
     
     protected virtual void Update()
+    {
+
+    }
+    
+    private IEnumerator FlashFX()
+    {
+        sr.material = hitMat;
+        Color currentColor = sr.color;
+        sr.color = Color.white;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        sr.color = currentColor;
+        sr.material = originalMat;
+    }
+    
+    public virtual void Die()
     {
 
     }

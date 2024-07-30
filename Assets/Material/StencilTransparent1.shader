@@ -13,9 +13,10 @@ Shader "Custom/StencilTransparent1"
             // Stencil setup to mark pixels
             Stencil
             {
-                Ref 0
-                Comp Equal
+                Ref 2
+                Comp GEqual
             }
+            
 
             CGPROGRAM
             #pragma vertex vert
