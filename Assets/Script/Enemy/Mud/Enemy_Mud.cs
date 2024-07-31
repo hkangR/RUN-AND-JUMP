@@ -6,8 +6,6 @@ using UnityEngine;
 public class Enemy_Mud : Enemy
 {
     
-    [SerializeField] public bool canCreateMask;
-    [SerializeField] public GameObject mask;
     [SerializeField] public float rushSpeed;//for battle
     [SerializeField] public float dashTime;//for attack
     [SerializeField] public float dashSpeed;//for attack
@@ -59,7 +57,6 @@ public class Enemy_Mud : Enemy
         {
             Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
             Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
-            //Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
         }
         gameObject.SetActive(false);
         
@@ -71,7 +68,6 @@ public class Enemy_Mud : Enemy
         if (collision.gameObject.tag == Tag.PLAYER) 
         {
             Player player = collision.gameObject.GetComponent<Player>();
-
             StartCoroutine(MakeDamage(player));
         }
     }

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthUI : MonoBehaviour {
+public class HealthUI : MonoBehaviour 
+{
     public static HealthUI Instance { get; private set; }
 
     public GameObject heartPrefab;
@@ -10,40 +11,49 @@ public class HealthUI : MonoBehaviour {
 
     public int currentHealth;
 
-    private void Awake() {
+    private void Awake() 
+    {
         if (Instance != null && Instance != this) { Destroy(Instance); return; }
         Instance = this;
     }
 
-    public void setMaxHealth(int newHealth) {
+    public void setMaxHealth(int newHealth) 
+    {
         maxHealth = newHealth;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHearts();
     }
 
-    public void setCurrentHealth(int newHealth) {
+    public void setCurrentHealth(int newHealth) 
+    {
         currentHealth = newHealth;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHearts();
     }
 
-    private void UpdateHearts() {
-        foreach (Transform child in transform) {
+    private void UpdateHearts() 
+    {
+        foreach (Transform child in transform) 
+        {
             Destroy(child.gameObject);
         }
 
-        for (int i = 0; i < maxHealth / 2; i++) {
+        for (int i = 0; i < maxHealth / 2; i++) 
+        {
             GameObject heartObj = Instantiate(heartPrefab, transform);
             Heart heart = heartObj.GetComponent<Heart>();
             hearts.Add(heart);
 
-            if (i * 2 + 1 < currentHealth) {
+            if (i * 2 + 1 < currentHealth) 
+            {
                 heart.SetHeartState(2);
             }
-            else if (i * 2 + 1 == currentHealth) {
+            else if (i * 2 + 1 == currentHealth) 
+            {
                 heart.SetHeartState(1);
             }
-            else {
+            else 
+            {
                 heart.SetHeartState(0);
             }
         }

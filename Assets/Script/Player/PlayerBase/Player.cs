@@ -13,11 +13,12 @@ public class Player : Entity
     public Vector2[] attackMovement;
     public float counterAttackDuration = 0.2f;
     public float beAttackForce = 5f;
+    public bool canBeAttacked = true;
     
     [Header("Move Info")]
     [SerializeField] public float moveSpeed = 8f;
     [SerializeField] public float jumpForce = 12f;
-    private float defaultMoveSpeed;
+    private float defaultMoveSpeed;//为 减速/加速 buff留的
     private float defaultJumpForce;
     
     [Header("Dash Info")]
@@ -28,7 +29,7 @@ public class Player : Entity
 
     public float dashDir { get; private set; }
     
-    private float defaultDashSpeed;
+    private float defaultDashSpeed;//也是为 减速/加速 buff留的
     
     PlayerProperty playerProperty;
     
@@ -40,7 +41,8 @@ public class Player : Entity
     public PlayerAirState airState { get; private set; }
     public PlayerDashState dashState { get; private set; }
     public PlayerDeathState deathState { get; private set; }
-    public PlayerPrimaryAttack primaryAttack { get; private set; }
+    public PlayerPrimaryAttack primaryAttack { get; private set; } 
+    //public PlayerSlideState slideState { get; private set; }
     #endregion
     
     protected override void Awake()
@@ -53,7 +55,8 @@ public class Player : Entity
         moveState = new PlayerMoveState(this, stateMachine, "Move");
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         airState = new PlayerAirState(this, stateMachine, "Jump");
-        dashState = new PlayerDashState(this, stateMachine, "Dash");
+        dashState = new PlayerDashState(this, stateMachine, "Dash", "Slide");
+        //slideState = new PlayerSlideState(this, stateMachine, "Slide");
         deathState = new PlayerDeathState(this, stateMachine, "Die");
         
         primaryAttack = new PlayerPrimaryAttack(this, stateMachine, "Attack");
@@ -85,6 +88,7 @@ public class Player : Entity
 
     }
     
+    //有时充当lock作用，主要在Attack中
     public IEnumerator BusyFor(float seconds)
     {
         isBusy = true;
@@ -104,11 +108,11 @@ public class Player : Entity
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0)
         {
             dashTimer = dashCooldown;
-            
+                
             dashDir = Input.GetAxisRaw("Horizontal");
 
             if (dashDir == 0) dashDir = facingDir;
-
+            
             stateMachine.ChangeState(dashState);
         }
     }
@@ -120,6 +124,7 @@ public class Player : Entity
 
     public void CauseDamage(Enemy enemy) 
     {
+        CameraManager.instance.virtualCamera.CameraShake();
         float amount;
         if (playerProperty) 
         {

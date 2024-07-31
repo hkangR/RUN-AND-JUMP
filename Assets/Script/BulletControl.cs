@@ -16,7 +16,7 @@ public class BulletControl : MonoBehaviour
     private void Awake()
     {
         //enemy = transform.parent.gameObject;
-        player = GameObject.Find("Player1");
+        player = PlayerManager.instance.player.gameObject;
         rb = GetComponent<Rigidbody2D>();
         cd = GetComponent<CircleCollider2D>();
         originalPos = transform.position;

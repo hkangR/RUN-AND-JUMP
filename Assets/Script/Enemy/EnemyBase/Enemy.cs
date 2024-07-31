@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    [Header("Mask info")]
+    [SerializeField] public GameObject mask;
+    [SerializeField] public bool canCreateMask;
+    
     [Header("Player info")]
     [SerializeField] public GameObject selfPlayer;
     [SerializeField] protected LayerMask whatIsPlayer;
     [SerializeField] protected float playerDetectedDistance;
-    [SerializeField] public int beAttackNum;
     
     [Header("Move info")]
     public float moveSpeed;
     public float idleTime;
     public float battleTime;
-    private float defaultMoveSpeed;
+    private float defaultMoveSpeed;//也是为减速留的
     
     [Header("Attack info")]
     public float attackDistance;
@@ -72,6 +75,7 @@ public class Enemy : Entity
 
     public void CauseDamage(Player player) 
     {
+        if(!player.canBeAttacked) return;
         float amount;
         if (enemyProperty) 
         {

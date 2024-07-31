@@ -6,12 +6,10 @@ public class CherubFlyState : EnemyState
 {
     private Enemy_Cherub enemy;
     
-    protected Transform player;
     
     public CherubFlyState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, Enemy_Cherub enemy) : base(enemyBase, stateMachine, animBoolName)
     {
         this.enemy = enemy;
-        player = enemy.selfPlayer.transform;
     }
     
     public override void Enter()

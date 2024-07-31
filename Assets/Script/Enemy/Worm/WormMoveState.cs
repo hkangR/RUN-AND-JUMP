@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WormMoveState : EnemyGroundState
+public class WormMoveState : WormGroundState
 {
     public WormMoveState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, Enemy_Worm enemy):base(enemyBase,stateMachine,animBoolName,enemy)
     {

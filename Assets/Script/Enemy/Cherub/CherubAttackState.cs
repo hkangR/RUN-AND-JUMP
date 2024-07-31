@@ -6,8 +6,6 @@ public class CherubAttackState : EnemyState
 {
     private Enemy_Cherub enemy;
     
-    protected Transform player;
-    
     public CherubAttackState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, Enemy_Cherub enemy) : base(enemyBase, stateMachine, animBoolName)
     {
         this.enemy = enemy;
@@ -18,7 +16,6 @@ public class CherubAttackState : EnemyState
         base.Enter();
         enemy.rb.velocity = new Vector2(0, 0);
         stateTimer = enemy.battleTime;
-        player = enemy.selfPlayer.transform;
     }
 
     public override void Exit()

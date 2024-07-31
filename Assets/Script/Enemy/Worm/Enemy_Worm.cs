@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Enemy_Worm : Enemy
 {
-    [SerializeField] public bool canCreateMask;
-    [SerializeField] public bool isGround;
-    [SerializeField] public GameObject mask;
     [SerializeField] public float patrolTime;
 
     #region States
@@ -41,7 +38,6 @@ public class Enemy_Worm : Enemy
     protected override void Update()
     {
         base.Update();
-        isGround = IsGroundDetected();
     }
 
     public override void Die()
@@ -58,12 +54,11 @@ public class Enemy_Worm : Enemy
         yield return new WaitForSeconds(0.5f);
         
         Vector3 maskPos = transform.position;
-        //stateMachine.ChangeState(deadState);
+        
         if (canCreateMask)
         {
             Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
             Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
-            //Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
         }
         gameObject.SetActive(false);
         

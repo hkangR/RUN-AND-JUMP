@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Enemy_Cherub : Enemy
 {
-    [SerializeField] public bool canCreateMask;
-    [SerializeField] public bool isGround;
-    [SerializeField] public GameObject mask;
     [SerializeField] public float launchSpeed;
     [SerializeField] public float flyTime;
     [SerializeField] public List<GameObject> photonBullet;
@@ -80,8 +77,6 @@ public class Enemy_Cherub : Enemy
             pb.GetComponent<BulletControl>().enemy = gameObject;
         }
         
-        
-
         isCreatingBullet = false;
         //stateMachine.ChangeState(fallState);
     }

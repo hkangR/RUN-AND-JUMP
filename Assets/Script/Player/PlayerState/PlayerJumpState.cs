@@ -12,7 +12,7 @@ public class PlayerJumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        rb.velocity = new Vector2(rb.velocity.x, player.jumpForce );
+        rb.velocity = new Vector2(rb.velocity.x, player.jumpForce);
     }
 
     public override void Exit()
@@ -25,7 +25,6 @@ public class PlayerJumpState : PlayerState
         base.Update();
         if(Input.GetKeyDown(KeyCode.Mouse0))//攻击状态
         {
-            Debug.Log("attack");
             stateMachine.ChangeState(player.primaryAttack);
         }
         if(rb.velocity.y<0)

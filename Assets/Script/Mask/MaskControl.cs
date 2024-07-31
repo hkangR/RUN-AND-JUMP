@@ -13,9 +13,9 @@ public class MaskControl : MonoBehaviour
 
     private void Awake()
     {
-        playerTransform = GameObject.Find("Player1").transform;
-        camera1 = GameObject.Find("Camera1").transform;
-        mainCamera = GameObject.Find("Main Camera").transform; 
+        playerTransform = PlayerManager.instance.transform;
+        camera1 = CameraManager.instance.camera1.transform;
+        mainCamera = CameraManager.instance.mainCamera.transform; 
     }
 
     private void Start()

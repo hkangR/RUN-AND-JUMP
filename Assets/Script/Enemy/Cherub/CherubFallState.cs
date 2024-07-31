@@ -6,7 +6,6 @@ public class CherubFallState : EnemyState
 {
     private Enemy_Cherub enemy;
     
-    protected Transform player;
     
     public CherubFallState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, Enemy_Cherub enemy) : base(enemyBase, stateMachine, animBoolName)
     {

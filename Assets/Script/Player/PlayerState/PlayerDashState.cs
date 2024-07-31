@@ -4,24 +4,39 @@ using UnityEngine;
 
 public class PlayerDashState : PlayerState
 {
-    public PlayerDashState(Player player, PlayerStateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
+    private string slide;
+    private bool sliding;
+    public PlayerDashState(Player player, PlayerStateMachine stateMachine, string animBoolName, string slide) : base(player, stateMachine, animBoolName)
     {
-
+        this.slide = slide;
     }
 
     public override void Enter()
     {
-        base.Enter();
+        if (player.IsGroundDetected())
+        {
+            rb = player.rb;
+            sliding = true;
+            player.animator.SetBool(slide,true);
+            triggerCalled = false;
+        }
+        else base.Enter();
         
+        player.canBeAttacked = false;
         stateTimer = player.dashDuration;
     }
 
     public override void Exit()
     {
-        base.Exit();
+        if (sliding)
+        {
+            sliding = false;
+            player.animator.SetBool(slide,false);
+        }
+        else base.Exit();
         
-        player.SetVelocity(0, rb.velocity.y);   
-        
+        player.SetVelocity(0, rb.velocity.y);
+        player.canBeAttacked = true;
     }
 
     public override void Update()
@@ -34,10 +49,5 @@ public class PlayerDashState : PlayerState
         {
             stateMachine.ChangeState(player.idleState);
         }
-        
-        /*if(!player.IsGroundDetected() && player.IsWallDetected())//黏墙
-        {
-            stateMachine.ChangeState(player.wallSlideState);
-        }*/
     }
 }

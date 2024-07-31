@@ -6,7 +6,6 @@ public class CherubIdleState : EnemyState
 {
     private Enemy_Cherub enemy;
     
-    protected Transform player;
     
     public CherubIdleState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, Enemy_Cherub enemy) : base(enemyBase, stateMachine, animBoolName)
     {
@@ -16,8 +15,6 @@ public class CherubIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        //player = PlayerManager.instance.player.transform;
-        player = enemy.selfPlayer.transform;
     }
 
     public override void Exit()

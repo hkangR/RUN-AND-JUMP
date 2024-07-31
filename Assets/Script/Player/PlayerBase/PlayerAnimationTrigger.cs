@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//在动画序列帧中触发
 public class PlayerAnimationTrigger : MonoBehaviour
 {
     private Player player => GetComponentInParent<Player>();
@@ -29,7 +30,6 @@ public class PlayerAnimationTrigger : MonoBehaviour
                 player.CauseDamage(enemy);
             }
             
-            //Debug.Log("Attacking Something");
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//虫子的动画触发事件
 public class WormAnimationTrigger : MonoBehaviour
 {
     private Enemy_Worm enemy => GetComponentInParent<Enemy_Worm>();
@@ -19,12 +20,8 @@ public class WormAnimationTrigger : MonoBehaviour
         {
             if(hit.GetComponent<Player>() != null)
             {
-                /*PlayerStats target = hit.GetComponent<PlayerStats>();
-                //enemy.stats.DoDamage(target);
-                enemy.stats.DoDamage(target);*/
-                //Debug.Log("Attacking Player");
                 Player player = hit.GetComponent<Player>();
-                enemy.CauseDamage(player);
+                enemy.CauseDamage(player);//敌人对玩家造成伤害
             }
         }
     }
