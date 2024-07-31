@@ -7,7 +7,7 @@ public class Enemy : Entity
     [Header("Player info")]
     [SerializeField] public GameObject selfPlayer;
     [SerializeField] protected LayerMask whatIsPlayer;
-    [SerializeField] private float playerDetectedDistance;
+    [SerializeField] protected float playerDetectedDistance;
     [SerializeField] public int beAttackNum;
     
     [Header("Move info")]
