@@ -28,7 +28,7 @@ public class CherubFallState : EnemyState
     {
         base.Update();
 
-        Debug.Log("Fall State");
+        //Debug.Log("Fall State");
 
         
         if (enemy.IsGroundDetected())

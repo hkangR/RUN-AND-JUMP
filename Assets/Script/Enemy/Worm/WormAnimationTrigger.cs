@@ -22,7 +22,7 @@ public class WormAnimationTrigger : MonoBehaviour
                 /*PlayerStats target = hit.GetComponent<PlayerStats>();
                 //enemy.stats.DoDamage(target);
                 enemy.stats.DoDamage(target);*/
-                Debug.Log("Attacking Player");
+                //Debug.Log("Attacking Player");
                 Player player = hit.GetComponent<Player>();
                 enemy.CauseDamage(player);
             }

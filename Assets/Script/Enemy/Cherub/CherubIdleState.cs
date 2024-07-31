@@ -28,13 +28,13 @@ public class CherubIdleState : EnemyState
     public override void Update()
     {
         base.Update();
-        Debug.Log("Idle State");
-        if(enemy.CherubPlayerDetected() || Vector2.Distance(enemy.transform.position,player.position)<2)
+        //Debug.Log("Idle State");
+        if(enemy.CherubPlayerDetected())
         {
             stateMachine.ChangeState(enemy.flyState);
         }
 
-        if (!enemy.CherubPlayerDetected())
+        if (!enemy.CherubPlayerDetected() && !enemy.IsGroundDetected())
         {
             stateMachine.ChangeState(enemy.fallState);
         }

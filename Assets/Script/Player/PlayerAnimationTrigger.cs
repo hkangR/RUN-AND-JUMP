@@ -25,19 +25,8 @@ public class PlayerAnimationTrigger : MonoBehaviour
             if(hit.GetComponent<Enemy>() != null)
             {
                 Enemy enemy = hit.GetComponent<Enemy>();
-                //hit.GetComponent<Enemy>().Damage();
-                //hit.GetComponent<CharacterStats>().TakeDamage(player.stats.damage.GetValue());
-                //EnemyStats target = hit.GetComponent<EnemyStats>();
-                //player.stats.DoDamage(target);
-                //player.stats.DoDamage(target);
-                //Instantiate(hit.GetComponent<Temp>().mask, hit.transform.transform.position, Quaternion.identity);
-                if(enemy.beAttackNum >= 3) enemy.Die();
-                else
-                {
-                    enemy.beAttackNum++;
-                    enemy.StartCoroutine("FlashFX");
-                    player.CauseDamage(enemy);
-                }
+                enemy.StartCoroutine("FlashFX");
+                player.CauseDamage(enemy);
             }
             
             //Debug.Log("Attacking Something");

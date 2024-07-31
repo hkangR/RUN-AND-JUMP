@@ -27,7 +27,7 @@ public class WormMoveState : EnemyGroundState
 
         enemy.SetVelocity(enemy.moveSpeed * enemy.facingDir , rb.velocity.y);
 
-        if (Vector2.Distance(enemy.transform.position, enemy.selfPlayer.transform.position) < 0.2)
+        if (enemy.IsPlayerDetected())
         {
             stateMachine.ChangeState(enemy.battleState);
         }

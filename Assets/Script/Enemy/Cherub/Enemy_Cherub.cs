@@ -73,12 +73,14 @@ public class Enemy_Cherub : Enemy
     public IEnumerator CreatePhotonBullet()
     {
         isCreatingBullet = true;
-        //rb.velocity = new Vector2(0, 0);
         for (int i = 0; i < photonBullet.Count; i++)
         {
             yield return new WaitForSeconds(0.5f);
-            Instantiate(photonBullet[i], transform.position, Quaternion.identity);
+            GameObject pb = Instantiate(photonBullet[i], transform.position, Quaternion.identity);
+            pb.GetComponent<BulletControl>().enemy = gameObject;
         }
+        
+        
 
         isCreatingBullet = false;
         //stateMachine.ChangeState(fallState);

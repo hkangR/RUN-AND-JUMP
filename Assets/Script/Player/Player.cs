@@ -12,6 +12,7 @@ public class Player : Entity
     [Header("Attack details")]
     public Vector2[] attackMovement;
     public float counterAttackDuration = 0.2f;
+    public float beAttackForce = 5f;
     
     [Header("Move Info")]
     [SerializeField] public float moveSpeed = 8f;
@@ -38,6 +39,7 @@ public class Player : Entity
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAirState airState { get; private set; }
     public PlayerDashState dashState { get; private set; }
+    public PlayerDeathState deathState { get; private set; }
     public PlayerPrimaryAttack primaryAttack { get; private set; }
     #endregion
     
@@ -52,6 +54,7 @@ public class Player : Entity
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         airState = new PlayerAirState(this, stateMachine, "Jump");
         dashState = new PlayerDashState(this, stateMachine, "Dash");
+        deathState = new PlayerDeathState(this, stateMachine, "Die");
         
         primaryAttack = new PlayerPrimaryAttack(this, stateMachine, "Attack");
         
@@ -102,7 +105,6 @@ public class Player : Entity
         {
             dashTimer = dashCooldown;
             
-            
             dashDir = Input.GetAxisRaw("Horizontal");
 
             if (dashDir == 0) dashDir = facingDir;
@@ -113,30 +115,44 @@ public class Player : Entity
     
     
     public override void Die() {
-        Destroy(gameObject);
+        stateMachine.ChangeState(deathState);
     }
 
-    public void CauseDamage(Enemy enemy) {
+    public void CauseDamage(Enemy enemy) 
+    {
         float amount;
-        if (playerProperty) {
+        if (playerProperty) 
+        {
             amount = playerProperty.atkResult;
         }
-        else {
+        else 
+        {
             return;
         }
-        
-        //Debug.Log("Player attack enemy, damage: " + amount);
         enemy.TakeDamage(amount);
     }
-    public void TakeDamage(float damage) {
+    public void TakeDamage(float damage)
+    {
+        StartCoroutine("FlashFX");
         playerProperty.RemoveProperty(PropertyType.HPValue, damage);
+        if (playerProperty.hpValue <= 0)
+        {
+            stateMachine.ChangeState(deathState);
+        }
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, beAttackForce);
+        }
     }
 
     //直接使用接触到的物件
-    public void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == Tag.PICKABLE) {
+    public void OnCollisionEnter2D(Collision2D collision) 
+    {
+        if (collision.gameObject.tag == Tag.PICKABLE) 
+        {
             PickableObject po = collision.gameObject.GetComponent<PickableObject>();
-            if (po != null) {
+            if (po != null) 
+            {
                 UseItem(po.itemSO);
                 po.Interact();
                 //Destroy(po.gameObject);
@@ -145,8 +161,10 @@ public class Player : Entity
     }
 
     //使用物体
-    public void UseItem(ItemSO itemSO) {
-        switch (itemSO.itemType) {
+    public void UseItem(ItemSO itemSO) 
+    {
+        switch (itemSO.itemType) 
+        {
             case ItemType.Consumable:
                 playerProperty.UseItem(itemSO);
                 break;

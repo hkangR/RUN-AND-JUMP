@@ -11,6 +11,7 @@ public class CherubFlyState : EnemyState
     public CherubFlyState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, Enemy_Cherub enemy) : base(enemyBase, stateMachine, animBoolName)
     {
         this.enemy = enemy;
+        player = enemy.selfPlayer.transform;
     }
     
     public override void Enter()
@@ -29,13 +30,17 @@ public class CherubFlyState : EnemyState
     {
         base.Update();
 
-        Debug.Log("Fly State");
+        //Debug.Log("Fly State");
 
         
-        if (!enemy.CherubPlayerDetected())
+        /*if(Vector2.Distance(player.position, enemy.transform.position) > 10)
+            stateMachine.ChangeState(enemy.fallState);*/
+            
+        
+        /*if (!enemy.CherubPlayerDetected())
         {
             stateMachine.ChangeState(enemy.fallState);
-        }
+        }*/
         
         if (stateTimer <= 0)
         {

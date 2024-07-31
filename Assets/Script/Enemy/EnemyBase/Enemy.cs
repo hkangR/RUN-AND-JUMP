@@ -70,23 +70,25 @@ public class Enemy : Entity
         base.Die();
     }
 
-    public void CauseDamage(Player player) {
+    public void CauseDamage(Player player) 
+    {
         float amount;
-        if (enemyProperty) {
+        if (enemyProperty) 
+        {
+            //Debug.Log(enemyProperty.atkResult);
             amount = enemyProperty.atkResult;
         }
-        else {
+        else 
+        {
             return;
         }
-
         player.TakeDamage(amount);
-        //Debug.Log("Player attack enemy, damage: " + amount);
     }
     public virtual void TakeDamage(float damage) 
     {
-        /*enemyProperty.RemoveProperty(PropertyType.HPValue,damage);
+        enemyProperty.RemoveProperty(PropertyType.HPValue,damage);
         if (enemyProperty.hpValue <= 0) {
             Die();
-        }*/
+        }
     }
 }

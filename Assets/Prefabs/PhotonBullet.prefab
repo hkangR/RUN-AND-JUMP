@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6676952083005543085}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.79, y: -1.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &725463773815568992
 SpriteRenderer:
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1046481331
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1374930209, guid: a9b4613ed6b3cd842b7ecebd08c98213, type: 3}
   m_Color: {r: 1, g: 1, b: 0, a: 1}
@@ -161,5 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643cf7b831484274c94c5cb4def86b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 226325752444425249, guid: 993bff9922af80d4ea9d30aa6ecac9df, type: 3}
   player: {fileID: 505819154389397174, guid: 5fb259763799df845b32f3d1fcd35684, type: 3}
-  bulletSpeed: 10
+  bulletSpeed: 8

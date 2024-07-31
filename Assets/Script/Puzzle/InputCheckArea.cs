@@ -1,60 +1,103 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
-public class InputCheckArea : MonoBehaviour {
-    [Tooltip("ÔÚInspectorÖĞÉèÖÃµÄÔ¤¶¨ÒåÊı×Ö×éºÏ")]
+public class InputCheckArea : MonoBehaviour 
+{
+    [Tooltip("ï¿½ï¿½Inspectorï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public List<int> predefinedSequence;
+    //private readonly List<int> cheatCode = new List<int> { 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0 };
 
     private List<int> playerInputSequence = new List<int>();
     private bool playerInArea = false;
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Player")) {
+    [Tooltip("ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ê±ï¿½ï¿½ï¿½Éµï¿½GameObject")]
+    public GameObject successObject;
+
+    [Tooltip("ï¿½ï¿½ï¿½É³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½")]
+    public Transform successSpawnPoint;
+
+    public FloatingImageController floatingImageController;
+    public GameObject ImagePrefab;
+    public Transform iconSpawnPoint;
+
+    private void OnTriggerEnter2D(Collider2D collision) 
+    {
+        if (collision.CompareTag("Player")) 
+        {
             playerInArea = true;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.CompareTag("Player")) {
+    private void OnTriggerExit2D(Collider2D collision) 
+    {
+        if (collision.CompareTag("Player")) 
+        {
             playerInArea = false;
         }
     }
 
-    void Update() {
-        if (playerInArea) {
-            if (Input.GetKeyDown(KeyCode.Alpha0)) {
+    void Update() 
+    {
+        if (playerInArea) 
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0)) 
+            {
                 AddInput(0);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) 
+            {
+                
                 AddInput(1);
             }
         }
     }
 
-    void AddInput(int input) {
+    void AddInput(int input) 
+    {
         playerInputSequence.Add(input);
 
-        if (playerInputSequence.Count > predefinedSequence.Count) {
-            playerInputSequence.RemoveAt(0); // ±£³ÖĞòÁĞ³¤¶È²»³¬¹ıÔ¤¶¨Òå×éºÏ³¤¶È
+        if (playerInputSequence.Count > predefinedSequence.Count) 
+        {
+            playerInputSequence.RemoveAt(0);
         }
 
-        if (IsSequenceMatch()) {
-            Debug.Log("ÊäÈëÕıÈ·£¡");
-            Destroy(gameObject);
-            // ÔÚÕâÀïÌí¼ÓÍæ¼ÒÊäÈëÕıÈ·Ê±µÄÂß¼­
+        if (IsSequenceMatch()) 
+        {
+            OnSuccess();
         }
     }
 
-    bool IsSequenceMatch() {
-        if (playerInputSequence.Count != predefinedSequence.Count) {
+    bool IsSequenceMatch() 
+    {
+        if (playerInputSequence.Count != predefinedSequence.Count) 
+        {
             return false;
         }
 
-        for (int i = 0; i < predefinedSequence.Count; i++) {
-            if (playerInputSequence[i] != predefinedSequence[i]) {
+        for (int i = 0; i < predefinedSequence.Count; i++) 
+        {
+            if (playerInputSequence[i] != predefinedSequence[i]) 
+            {
                 return false;
             }
         }
         return true;
+    }
+
+    void OnSuccess()
+    {
+        // ï¿½ï¿½ï¿½É³É¹ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (successObject != null && successSpawnPoint != null)
+        {
+            Instantiate(successObject, successSpawnPoint.position, successSpawnPoint.rotation);
+        }
+
+        //ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
+        floatingImageController.floatingImagePrefab = ImagePrefab;
+        floatingImageController.SpawnFloatingImage(iconSpawnPoint);
+
+        Destroy(gameObject);
     }
 }

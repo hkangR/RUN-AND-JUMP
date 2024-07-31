@@ -30,7 +30,7 @@ public class CherubAttackState : EnemyState
     {
         base.Update();
 
-        Debug.Log("Attack State");
+        //Debug.Log("Attack State");
         if(!enemy.isCreatingBullet)
             enemy.StartCoroutine("CreatePhotonBullet");
         if (stateTimer < 0)

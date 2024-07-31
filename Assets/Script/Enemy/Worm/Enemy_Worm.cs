@@ -68,14 +68,5 @@ public class Enemy_Worm : Enemy
         gameObject.SetActive(false);
         
     }
-
-    public override void TakeDamage(float damage)
-    {
-        enemyProperty.RemoveProperty(PropertyType.HPValue,damage);
-        if (enemyProperty.hpValue <= 0) 
-        {
-            Die();
-        }
-        
-    }
+    
 }
