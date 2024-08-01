@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : PlayerState
+public class PlayerDoubleJump : PlayerState
 {
-    public PlayerJumpState(Player player, PlayerStateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
+    public PlayerDoubleJump(Player player, PlayerStateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
 
     }
@@ -13,6 +13,7 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
         rb.velocity = new Vector2(rb.velocity.x, player.jumpForce);
+        player.canDoubleJump = false;
     }
 
     public override void Exit()
@@ -24,11 +25,7 @@ public class PlayerJumpState : PlayerState
     {
         base.Update();
 
-        if (player.canDoubleJump && Input.GetKeyDown(KeyCode.Space))//二段跳
-        {
-            stateMachine.ChangeState(player.doubleJump);
-        }
-        
+        Debug.Log("DoubleJump");
         if(Input.GetKeyDown(KeyCode.Mouse0))//攻击状态
         {
             stateMachine.ChangeState(player.primaryAttack);

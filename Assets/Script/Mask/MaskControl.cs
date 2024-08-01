@@ -6,14 +6,12 @@ using UnityEngine;
 public class MaskControl : MonoBehaviour
 {
     [SerializeField] private Vector3 originalpos;
-    [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform mainCamera;
     [SerializeField] private Transform camera1;
     [SerializeField] private Vector3 distance;
 
     private void Awake()
     {
-        playerTransform = PlayerManager.instance.transform;
         camera1 = CameraManager.instance.camera1.transform;
         mainCamera = CameraManager.instance.mainCamera.transform; 
     }

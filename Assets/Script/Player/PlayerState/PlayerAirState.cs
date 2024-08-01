@@ -17,6 +17,7 @@ public class PlayerAirState : PlayerState
     public override void Exit()
     {
         base.Exit();
+        player.canDoubleJump = true;
     }
 
     public override void Update()
@@ -27,10 +28,15 @@ public class PlayerAirState : PlayerState
         {
             stateMachine.ChangeState(player.idleState);
         }
+
+        if (player.canDoubleJump && Input.GetKeyDown(KeyCode.Space))//二段跳
+        {
+            stateMachine.ChangeState(player.doubleJump);
+        }
         
         if(Input.GetKeyDown(KeyCode.Mouse0))//攻击状态
         {
-            Debug.Log("attack");
+            //Debug.Log("attack");
             stateMachine.ChangeState(player.primaryAttack);
         }
         

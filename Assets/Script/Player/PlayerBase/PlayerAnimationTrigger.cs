@@ -15,8 +15,13 @@ public class PlayerAnimationTrigger : MonoBehaviour
 
     private void AttackTrigger()
     {
-        if(player.canMakeMask)
+        if (player.canMakeMask)
+        {
+            player.StartCoroutine(player.CreateMaskFX());
             Instantiate(player.mask,player.attackCheck.position,Quaternion.identity);
+            
+        }
+
         
         
         Collider2D[] colliders = Physics2D.OverlapCircleAll(player.attackCheck.position,player.attackCheckRadius);
@@ -25,11 +30,16 @@ public class PlayerAnimationTrigger : MonoBehaviour
         {
             if(hit.GetComponent<Enemy>() != null)
             {
+                Debug.Log("Hit Enemy");
                 Enemy enemy = hit.GetComponent<Enemy>();
                 enemy.StartCoroutine("FlashFX");
                 player.CauseDamage(enemy);
             }
             
         }
+    }
+    
+    private void DeathTrigger() {
+        player.onDead();
     }
 }

@@ -10,8 +10,9 @@ public class PlayerProperty : MonoBehaviour
     public float hpValue;
     public float atkValue;
 
-    public float atkBonus;
-    public float atkResult => atkValue + atkValue * atkBonus;
+    public float atkBonus = 1;
+    public float weaponBonus = 1;
+    public float atkResult => atkValue * atkBonus * weaponBonus;
 
     public void Start() {
         //currentHP = maxHP;
@@ -28,6 +29,7 @@ public class PlayerProperty : MonoBehaviour
             case PropertyType.MaxHPValue:
                 maxHP += value;
                 hpValue += value;
+                HealthUI.Instance.setMaxHealth((int)maxHP);
                 return;
             case PropertyType.HPValue:
                 hpValue += value;
@@ -36,6 +38,12 @@ public class PlayerProperty : MonoBehaviour
                 return;
             case PropertyType.AttackValue:
                 atkValue += value;
+                return;
+            case PropertyType.AttackBonus:
+                atkValue += value;
+                return;
+            case PropertyType.AbilityIndex:
+                UnlockAbility((int)value);
                 return;
         }
 
@@ -48,6 +56,7 @@ public class PlayerProperty : MonoBehaviour
             case PropertyType.MaxHPValue:
                 maxHP -= value;
                 hpValue = Mathf.Clamp(hpValue, 0, maxHP);
+                HealthUI.Instance.setMaxHealth((int)maxHP);
                 return;
             case PropertyType.HPValue:
                 hpValue -= value;
@@ -56,6 +65,12 @@ public class PlayerProperty : MonoBehaviour
                 return;
             case PropertyType.AttackValue:
                 atkValue -= value;
+                return;
+            case PropertyType.AttackBonus:
+                atkValue -= value;
+                return;
+            case PropertyType.AbilityIndex:
+                lockAbility((int)value);
                 return;
         }
 
@@ -67,6 +82,25 @@ public class PlayerProperty : MonoBehaviour
     public void UseItem(ItemSO itemSO) {
         foreach (Property p in itemSO.propertyList) {
             AddProperty(p.propertyType, p.value);
+        }
+    }
+
+    public void relife() {
+        hpValue = maxHP;
+        HealthUI.Instance.setCurrentHealth((int)hpValue);
+    }
+
+    public void UnlockAbility(int index) {
+        switch (index) {
+            case 1:
+                return;
+        }
+    }
+
+    public void lockAbility(int index) {
+        switch (index) {
+            case 1:
+                return;
         }
     }
 }

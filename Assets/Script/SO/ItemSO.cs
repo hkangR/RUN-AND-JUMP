@@ -36,5 +36,6 @@ public enum PropertyType {
     MaxHPValue,
     HPValue,
     AttackValue,
+    AttackBonus,
+    AbilityIndex,
 }
-

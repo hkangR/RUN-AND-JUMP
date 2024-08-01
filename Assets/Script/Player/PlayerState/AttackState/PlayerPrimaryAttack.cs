@@ -17,6 +17,8 @@ public class PlayerPrimaryAttack : PlayerState
     public override void Enter()
     { 
         base.Enter();
+        AudioManager.instance.PlaySFX(0, player.transform);
+        
         xInput = 0;
 
         if(comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)//连击
@@ -24,6 +26,11 @@ public class PlayerPrimaryAttack : PlayerState
             comboCounter = 0;
         }
 
+        if (comboCounter == 2)
+        {
+            player.attackTransform.position += new Vector3(0.7f, 0, 0);
+        }
+        
         player.animator.SetInteger("ComboCounter", comboCounter);
 
 
@@ -48,9 +55,15 @@ public class PlayerPrimaryAttack : PlayerState
 
         //player.StartCoroutine("BusyFor", 0.15f);
         player.StartCoroutine("BusyFor", 0.1f);//lock
-
+    
         comboCounter++;
         lastTimeAttacked = Time.time;
+        
+        if(comboCounter > 2)
+            player.attackTransform.position -= new Vector3(0.7f, 0, 0);
+        
+        AudioManager.instance.StopSFX(0);
+        
     }
 
     public override void Update()
