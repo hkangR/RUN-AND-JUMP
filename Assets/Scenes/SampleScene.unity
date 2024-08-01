@@ -1451,6 +1451,40 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &622003012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 622003013}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &622003013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622003012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.9773984, y: 6.459466, z: -0.11038039}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1319510140}
+  - {fileID: 1557828162}
+  - {fileID: 709122994}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &631878764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,12 +1887,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709122992}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.9773984, y: 6.459466, z: -0.11038039}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 622003013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &739915656
 GameObject:
@@ -2522,7 +2556,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
-  playerDetectedDistance: 5.89
+  playerDetectedDistance: 6
   moveSpeed: 0
   idleTime: 0
   battleTime: 2
@@ -3226,12 +3260,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319510138}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65981627, y: 5.55413, z: -0.091178596}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.317582, y: -0.9053359, z: 0.019201793}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 622003013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1355517820
 GameObject:
@@ -4219,12 +4253,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557828161}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1613.057, y: 1.8219825, z: -0.24759854}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1621.0344, y: -4.6374836, z: -0.13721815}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 622003013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1557828163
 MonoBehaviour:
@@ -4821,7 +4855,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
-  playerDetectedDistance: 5.89
+  playerDetectedDistance: 6
   moveSpeed: 0
   idleTime: 0
   battleTime: 2
@@ -5651,6 +5685,10 @@ PrefabInstance:
       propertyPath: selfPlayer
       value: 
       objectReference: {fileID: 1238558244}
+    - target: {fileID: 4480574710074113393, guid: 993bff9922af80d4ea9d30aa6ecac9df, type: 3}
+      propertyPath: playerDetectedDistance
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6280133552229119071, guid: 993bff9922af80d4ea9d30aa6ecac9df, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -5756,6 +5794,10 @@ PrefabInstance:
       propertyPath: selfPlayer
       value: 
       objectReference: {fileID: 1238558244}
+    - target: {fileID: 6138238510267123757, guid: 380a04b9cf9742442a85f0c6a2821e01, type: 3}
+      propertyPath: playerDetectedDistance
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5821,6 +5863,10 @@ PrefabInstance:
       propertyPath: selfPlayer
       value: 
       objectReference: {fileID: 1238558244}
+    - target: {fileID: 2287675716792551441, guid: 2d0b7e569f911a241936efea6f6b78b8, type: 3}
+      propertyPath: playerDetectedDistance
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5832,9 +5878,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 1319510140}
-  - {fileID: 1557828162}
-  - {fileID: 709122994}
+  - {fileID: 622003013}
   - {fileID: 1238558245}
   - {fileID: 872087468}
   - {fileID: 1594029385}

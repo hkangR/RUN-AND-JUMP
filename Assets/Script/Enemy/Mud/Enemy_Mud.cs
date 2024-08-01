@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy_Mud : Enemy
 {
-    
+    [SerializeField] public float trackDistance = 7f;
     [SerializeField] public float rushSpeed;//for battle
     [SerializeField] public float dashTime;//for attack
     [SerializeField] public float dashSpeed;//for attack

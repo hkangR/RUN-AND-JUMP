@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy_Worm : Enemy
 {
+    [SerializeField] public float trackDistance = 7f;
     [SerializeField] public float patrolTime;
 
     #region States

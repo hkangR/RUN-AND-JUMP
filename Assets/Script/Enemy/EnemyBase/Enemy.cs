@@ -64,8 +64,9 @@ public class Enemy : Entity
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.yellow;
-
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * facingDir, transform.position.y));
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(wallCheck.position,new Vector3(transform.position.x + playerDetectedDistance * facingDir,transform.position.y));
     }
     
     

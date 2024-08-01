@@ -45,7 +45,7 @@ public class WormBattleState : EnemyState
         }
         else
         {
-            if(stateTimer < 0 || Vector2.Distance(player.transform.position,enemy.transform.position) > 7)
+            if(stateTimer < 0 || Vector2.Distance(player.transform.position,enemy.transform.position) > enemy.trackDistance)
             {
                 stateMachine.ChangeState(enemy.idleState);
             }
