@@ -6,6 +6,7 @@ public class Enemy_Cherub : Enemy
 {
     [SerializeField] public float launchSpeed;
     [SerializeField] public float flyTime;
+    //[SerializeField] public GameObject bulletPrefab;
     [SerializeField] public List<GameObject> photonBullet;
     [SerializeField] public bool isCreatingBullet;
     
@@ -73,8 +74,9 @@ public class Enemy_Cherub : Enemy
         for (int i = 0; i < photonBullet.Count; i++)
         {
             yield return new WaitForSeconds(0.5f);
-            GameObject pb = Instantiate(photonBullet[i], transform.position, Quaternion.identity);
-            pb.GetComponent<BulletControl>().enemy = gameObject;
+            Instantiate(photonBullet[i], transform);
+            //GameObject pb = Instantiate(photonBullet[i], transform);
+            //pb.GetComponent<BulletControl>().enemy = gameObject;
         }
         
         isCreatingBullet = false;

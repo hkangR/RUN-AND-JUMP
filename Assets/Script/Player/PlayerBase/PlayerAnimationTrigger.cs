@@ -17,7 +17,7 @@ public class PlayerAnimationTrigger : MonoBehaviour
     {
         if (player.canMakeMask)
         {
-            player.StartCoroutine(player.CreateMaskFX());
+            //player.StartCoroutine(player.CreateMaskFX());
             Instantiate(player.mask,player.attackCheck.position,Quaternion.identity);
             
         }

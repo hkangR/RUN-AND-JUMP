@@ -19,7 +19,7 @@ public class WormBattleState : EnemyState
         base.Enter();
         //player = PlayerManager.instance.player.transform;
         //player = GameObject.Find("Player").transform;
-        player = enemy.selfPlayer.transform;
+        player = PlayerManager.instance.player.transform;
     }
 
     public override void Exit()

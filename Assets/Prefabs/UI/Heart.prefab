@@ -32,6 +32,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -88,6 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb715e7286aa9254d9acc49097ad0841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullHeart: {fileID: 21300000, guid: 3cf055449a1cc1b43a69a3c0c45b79b5, type: 3}
-  halfHeart: {fileID: 21300000, guid: 2693f6e11873e9d489e60d85e1688163, type: 3}
-  emptyHeart: {fileID: 21300000, guid: 85e14eb81a0e9ab468a93117301fbc3d, type: 3}
+  fullHeart: {fileID: 21300000, guid: 66ea2368f87bfd140b21a9dcd38f96b5, type: 3}
+  halfHeart: {fileID: 21300000, guid: a2304d45354586440ba97fdf1aac0460, type: 3}
+  emptyHeart: {fileID: 21300000, guid: bef25652ef110f44b9fcdb15b0da2ce8, type: 3}

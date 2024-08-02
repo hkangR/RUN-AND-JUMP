@@ -11,7 +11,7 @@ public class Player : Entity
     [SerializeField] public GameObject maskFX;
     [SerializeField] public GameObject mask;
     [SerializeField] public Transform attackTransform;
-    [FormerlySerializedAs("originalAttackTransform")] [SerializeField] public Vector3 originalAttackPos;
+    [SerializeField] public Vector3 attackOffset = new Vector3(0.7f, 0, 0);
     
     [Header("Attack details")]
     public Vector2[] attackMovement;
@@ -35,8 +35,8 @@ public class Player : Entity
     
     private float defaultDashSpeed;//也是为 减速/加速 buff留的
     
-    PlayerProperty playerProperty;
-    PlayerRespawn playerRespawn;
+    private PlayerProperty playerProperty;
+    private PlayerRespawn playerRespawn;
     
     #region States
     public PlayerStateMachine stateMachine { get; private set; }
@@ -84,8 +84,7 @@ public class Player : Entity
         defaultMoveSpeed = moveSpeed;
         defaultJumpForce = jumpForce;
         defaultDashSpeed = dashSpeed;
-
-        originalAttackPos = attackTransform.position; //记录初始位置
+        
     }
     
     protected override void Update()
@@ -134,10 +133,11 @@ public class Player : Entity
     public override void Die() {
         stateMachine.ChangeState(deathState);
     }
-
+    
+    
     public void CauseDamage(Enemy enemy) 
     {
-        CameraManager.instance.virtualCamera.CameraShake();
+        //CameraManager.instance.virtualCamera.CameraShake();
         float amount;
         if (playerProperty) 
         {
@@ -176,6 +176,17 @@ public class Player : Entity
                 //Destroy(po.gameObject);
             }
         }
+
+        if (collision.gameObject.tag == Tag.CHIP)
+        {
+            PickableObject po = collision.gameObject.GetComponent<PickableObject>();
+            if (po != null) 
+            {
+                UseItem(po.itemSO);
+            }
+            ChipUI.instance.PickChip();
+            Destroy(collision.gameObject);
+        }
     }
 
     //使用物体
@@ -184,6 +195,9 @@ public class Player : Entity
         switch (itemSO.itemType) 
         {
             case ItemType.Consumable:
+                playerProperty.UseItem(itemSO);
+                break;
+            case ItemType.Chip:
                 playerProperty.UseItem(itemSO);
                 break;
             default:

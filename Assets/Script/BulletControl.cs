@@ -25,7 +25,7 @@ public class BulletControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemy = GetComponentInParent<Enemy>().gameObject;//合理了一点
         // 计算射向玩家的方向向量
         Vector3 shootDirection = (player.transform.position - originalPos).normalized;
 

@@ -9,7 +9,6 @@ public class Enemy : Entity
     [SerializeField] public bool canCreateMask;
     
     [Header("Player info")]
-    [SerializeField] public GameObject selfPlayer;
     [SerializeField] protected LayerMask whatIsPlayer;
     [SerializeField] protected float playerDetectedDistance;
     
@@ -24,7 +23,7 @@ public class Enemy : Entity
     public float attackCooldown;
     [HideInInspector] public float lastTimeAttack;
     
-    public EnemyProperty enemyProperty;
+    private EnemyProperty enemyProperty;
     
     public EnemyStateMachine stateMachine { get; private set; }
     

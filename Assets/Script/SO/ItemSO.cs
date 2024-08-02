@@ -12,11 +12,13 @@ public class ItemSO : ScriptableObject {
     public List<Property> propertyList;
     //public Sprite icon;
     public GameObject prefab;
+    
 }
 
 public enum ItemType {
     Weapon,
     Consumable,
+    Chip
 }
 
 [Serializable]
@@ -30,7 +32,11 @@ public class Property {
         this.propertyType = propertyType;
         this.value = value;
     }
+    
 }
+
+
+
 
 public enum PropertyType {
     MaxHPValue,

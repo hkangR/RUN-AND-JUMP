@@ -28,7 +28,8 @@ public class PlayerPrimaryAttack : PlayerState
 
         if (comboCounter == 2)
         {
-            player.attackTransform.position += new Vector3(0.7f, 0, 0);
+            CameraManager.instance.virtualCamera.CameraShake();
+            player.attackTransform.position += player.attackOffset;
         }
         
         player.animator.SetInteger("ComboCounter", comboCounter);
@@ -60,7 +61,7 @@ public class PlayerPrimaryAttack : PlayerState
         lastTimeAttacked = Time.time;
         
         if(comboCounter > 2)
-            player.attackTransform.position -= new Vector3(0.7f, 0, 0);
+            player.attackTransform.position -= player.attackOffset;
         
         AudioManager.instance.StopSFX(0);
         

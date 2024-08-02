@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 public class MaskFollow : MonoBehaviour
 {
+    private Renderer renderer;
+    public Material materialInstance;
+
     [SerializeField] private Vector3 originalpos;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform mainCamera;
@@ -14,6 +17,7 @@ public class MaskFollow : MonoBehaviour
     [SerializeField] private Vector3 distance;
 
     [SerializeField] private GameObject parent;
+    private float creationTime;
 
     private void Awake()
     {
@@ -22,6 +26,11 @@ public class MaskFollow : MonoBehaviour
         mainCamera = CameraManager.instance.mainCamera.transform; 
         
         parent = GameObject.Find("MaskParent");
+        renderer = gameObject.GetComponent<Renderer>();
+        materialInstance = renderer.material;
+
+        creationTime = Time.time;
+        materialInstance.SetFloat("_CreationTime", creationTime);
     }
     
     void Start()
@@ -35,7 +44,9 @@ public class MaskFollow : MonoBehaviour
         transform.SetParent(parent.transform);
     }
 
-
-
-
+    void Update()
+    {
+        float currentTime = Time.time;
+        materialInstance.SetFloat("_CurrentTime", currentTime);
+    }
 }
