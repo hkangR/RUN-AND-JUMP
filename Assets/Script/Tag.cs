@@ -8,4 +8,5 @@ public class Tag : MonoBehaviour
     public const string PICKABLE = "Pickable";
     public const string WEAPON = "Weapon";
     public const string CHIP = "Chip";
+    public const string Boss = "Boss";
 }

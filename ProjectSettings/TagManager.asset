@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickable
   - Chip
+  - Boss
   layers:
   - Default
   - TransparentFX

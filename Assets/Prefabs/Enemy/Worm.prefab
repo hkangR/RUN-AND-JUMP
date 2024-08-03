@@ -39,7 +39,7 @@ Transform:
   - {fileID: 8490820812059434806}
   - {fileID: 6294096624207321825}
   m_Father: {fileID: 0}
-  m_RootOrder: -2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4204493398538011475
 Rigidbody2D:
@@ -136,22 +136,19 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  selfPlayer: {fileID: 0}
+  mask: {fileID: 8842636868949782282, guid: 3b50e4c5245397a42a0bee3be55e192b, type: 3}
+  canCreateMask: 1
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
   playerDetectedDistance: 3
-  beAttackNum: 0
   moveSpeed: 2
   idleTime: 1
   battleTime: 4
   attackDistance: 0.5
   attackCooldown: 0
   lastTimeAttack: 0
-  enemyProperty: {fileID: 5980749211004396023}
-  canCreateMask: 1
-  isGround: 0
-  mask: {fileID: 8842636868949782282, guid: 3b50e4c5245397a42a0bee3be55e192b, type: 3}
+  trackDistance: 7
   patrolTime: 2
 --- !u!114 &7692160849013101212
 MonoBehaviour:
