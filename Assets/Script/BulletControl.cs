@@ -43,7 +43,9 @@ public class BulletControl : MonoBehaviour
             Debug.Log("hit");   
             // 碰撞到玩家时销毁子弹
             Destroy(gameObject);
+            return;
         }
         Destroy(gameObject);
+        Debug.Log(other.ToString());
     }
 }

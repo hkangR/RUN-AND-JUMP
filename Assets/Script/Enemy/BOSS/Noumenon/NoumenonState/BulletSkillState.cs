@@ -14,20 +14,25 @@ public class BulletSkillState : EnemyState
     public override void Enter()
     {
         //播放动画
-        //base.Enter();
+        base.Enter();
     }
 
     public override void Exit()
     {
-        //base.Exit();
+        base.Exit();
     }
 
     public override void Update()
     {
         base.Update();
+        //Debug.Log("Bullet");
         //发射
-        if(!enemy.isCreatingBullet)
+        if (!enemy.isCreatingBullet)
+        {
+            //Debug.Log("create");
             enemy.StartCoroutine("CreatePhotonBullet");
+            
+        }
         if(stateTimer < 0)
             stateMachine.ChangeState(enemy.idleState);
     }

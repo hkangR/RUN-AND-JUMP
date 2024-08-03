@@ -21,12 +21,13 @@ public class BossIdleState : EnemyState
 
     public override void Exit()
     {
-        //base.Exit();
+        base.Exit();
     }
 
     public override void Update()
     {
         base.Update();
+        //Debug.Log("idle");
         if (stateTimer < 0)
         {
             //int randomSkill = Mathf.RoundToInt(Random.Range(0, 2));//随机选择攻击

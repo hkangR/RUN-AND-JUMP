@@ -11,14 +11,14 @@ public class Boss : Enemy
     [SerializeField] private Vector3 bulletOffset;
     [SerializeField] private BossHand leftHand;
     [SerializeField] private BossHand rightHand;
-    private EnemyProperty enemyProperty;
+    //private EnemyProperty enemyProperty;
     
     public BossIdleState idleState { get; private set; } //检测到玩家激活Boss,双手进入攻击状态，同时作为过度状态
     public BulletSkillState bulletSkillState { get; private set; } //弹幕攻击状态
     protected override void Awake()
     {
         base.Awake();
-        enemyProperty = GetComponent<EnemyProperty>();
+        //enemyProperty = GetComponent<EnemyProperty>();
         
         idleState = new BossIdleState(this, stateMachine, "Idle", this);
         bulletSkillState = new BulletSkillState(this, stateMachine, "BulletSkill", this);
