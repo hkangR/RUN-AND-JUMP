@@ -159,7 +159,8 @@ public class Player : Entity
         }
         else
         {
-            rb.velocity = new Vector2(rb.velocity.x, beAttackForce);
+            //我们要保留一点Bug，这样玩家才能知道我们的游戏叫Defeat-Bug
+            rb.velocity = new Vector2(rb.velocity.x, beAttackForce);//笑死，连续攻击能被打上天
         }
     }
 

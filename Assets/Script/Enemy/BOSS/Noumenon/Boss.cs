@@ -43,10 +43,10 @@ public class Boss : Enemy
         isCreatingBullet = true;
         for (int i = 0; i < photonBullet.Count; i++)
         {
-            yield return new WaitForSeconds(0.5f);
             Instantiate(photonBullet[i], transform.position, Quaternion.identity, transform);
             Instantiate(photonBullet[i], transform.position + bulletOffset,Quaternion.identity, transform);
             Instantiate(photonBullet[i], transform.position - bulletOffset,Quaternion.identity, transform);
+            yield return new WaitForSeconds(0.8f);
         }
         
         isCreatingBullet = false;

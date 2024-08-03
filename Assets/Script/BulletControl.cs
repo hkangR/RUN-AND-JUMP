@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BulletControl : MonoBehaviour
 {
-    [SerializeField] public GameObject enemy;
+    [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject player;
     [SerializeField] private float bulletSpeed;
     //private EnemyProperty enemy;
@@ -16,16 +16,17 @@ public class BulletControl : MonoBehaviour
     private void Awake()
     {
         //enemy = transform.parent.gameObject;
-        player = PlayerManager.instance.player.gameObject;
         rb = GetComponent<Rigidbody2D>();
         cd = GetComponent<CircleCollider2D>();
-        originalPos = transform.position;
+        enemy = GetComponentInParent<Enemy>().gameObject;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        enemy = GetComponentInParent<Enemy>().gameObject;//合理了一点
+        rb.gravityScale = 0f;
+        originalPos = transform.position;
+        player = PlayerManager.instance.player.gameObject;
         // 计算射向玩家的方向向量
         Vector3 shootDirection = (player.transform.position - originalPos).normalized;
 
