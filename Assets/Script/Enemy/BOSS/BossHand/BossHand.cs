@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossHand : Enemy
 {
-    [SerializeField] private bool _isLeftHand;
+    [SerializeField] private bool canAttack;
     [SerializeField] private float groundedTime;
     [SerializeField] private Vector3 originPos;//初始位置
     
@@ -53,10 +54,12 @@ public class BossHand : Enemy
     {
         //yield return StartCoroutine(HandShake());
         isHitting = true;
+        DrawDamageArea();
         transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 0f-yOffset), hitSpeed * Time.deltaTime);//拍击
         
         if (IsGroundDetected() && isHammer)
         { 
+            canAttack = false;
             HammerPlayer();
         }
         yield return new WaitForSeconds(groundedTime);
@@ -65,8 +68,24 @@ public class BossHand : Enemy
         isHitting = false;
         stateMachine.ChangeState(idleState);
         transform.position = Vector3.Lerp(transform.position, originPos,  hitSpeed * Time.deltaTime);//回到原位
+        canAttack = true;
     }
 
+    private void DrawDamageArea()
+    {
+        if(!canAttack) return;
+        
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(3, 4f), 0f);
+        foreach(var hit in colliders)
+        {
+            if(hit.GetComponent<Player>() != null)
+            {
+                CauseDamage(hit.GetComponent<Player>());
+            }
+            
+        }
+    }
+    
     private void HammerPlayer()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(100f, 1f), 0f);
@@ -81,11 +100,4 @@ public class BossHand : Enemy
         }
     }
     
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Player>() != null)
-        {
-            CauseDamage(other.GetComponent<Player>());
-        }
-    }
 }

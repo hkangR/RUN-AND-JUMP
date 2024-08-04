@@ -34,8 +34,8 @@ public class BossHandReady : EnemyState
 
         if (stateTimer < 0)
         {
-            //stateMachine.ChangeState(enemy.hitState);
-            stateMachine.ChangeState(enemy.hammerState);
+            stateMachine.ChangeState(enemy.hitState);
+            //stateMachine.ChangeState(enemy.hammerState);
         }
 
     }
