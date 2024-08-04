@@ -30,7 +30,7 @@ public class BossHandIdleState : EnemyState
   
         if (stateTimer < 0)
         {
-            stateMachine.ChangeState(enemy.hitState);
+            stateMachine.ChangeState(enemy.ready);
         }
     }
 }
