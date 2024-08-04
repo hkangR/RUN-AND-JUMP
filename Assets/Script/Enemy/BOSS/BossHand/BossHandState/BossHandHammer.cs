@@ -5,6 +5,8 @@ using UnityEngine;
 public class BossHandHammer : EnemyState
 {
     private BossHand enemy;
+    private Player player;
+    private bool groundCanShake;
     
     
     public BossHandHammer(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, BossHand enemy) : base(enemyBase, stateMachine, animBoolName)
@@ -16,6 +18,9 @@ public class BossHandHammer : EnemyState
     {
         //播放动画
         base.Enter();
+        player = PlayerManager.instance.player;
+        stateTimer = enemy.hammerAnimationTime;
+        groundCanShake = true;
     }
 
     public override void Exit()
@@ -27,5 +32,17 @@ public class BossHandHammer : EnemyState
     {
         base.Update();
         
+        
+        if (stateTimer < 0)
+        {
+            enemy.StartCoroutine(enemy.Hit(player,true));
+        }
+        if (enemy.IsGroundDetected() && groundCanShake)
+        {
+            groundCanShake = false;
+            CameraManager.instance.virtualCamera.CameraShake(2,2,0.5f);
+        }
     }
+    
+    
 }

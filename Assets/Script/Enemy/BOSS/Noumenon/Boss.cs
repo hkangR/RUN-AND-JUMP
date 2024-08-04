@@ -11,6 +11,8 @@ public class Boss : Enemy
     [SerializeField] private Vector3 bulletOffset;
     [SerializeField] private BossHand leftHand;
     [SerializeField] private BossHand rightHand;
+
+    [SerializeField] private bool isSecondStage;
     //private EnemyProperty enemyProperty;
     
     public BossIdleState idleState { get; private set; } //检测到玩家激活Boss,双手进入攻击状态，同时作为过度状态
@@ -50,6 +52,7 @@ public class Boss : Enemy
         }
         
         isCreatingBullet = false;
+        stateMachine.ChangeState(idleState);
         
     }
     

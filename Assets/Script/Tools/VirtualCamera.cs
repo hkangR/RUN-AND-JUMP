@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEditor;
 
 public class VirtualCamera : MonoBehaviour
 {
@@ -20,6 +21,16 @@ public class VirtualCamera : MonoBehaviour
     }
     
     public void CameraShake()
+    {
+        if (noiseProfile != null)
+        {
+            noiseProfile.m_AmplitudeGain = amplitude;
+            noiseProfile.m_FrequencyGain = frequency;
+            Invoke(nameof(StopShaking), duration);
+        }
+    }
+
+    public void CameraShake(float amplitude , float frequency, float duration)
     {
         if (noiseProfile != null)
         {

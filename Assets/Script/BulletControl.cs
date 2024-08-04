@@ -41,7 +41,7 @@ public class BulletControl : MonoBehaviour
         {
             //造成伤害
             enemy.GetComponent<Enemy>().CauseDamage(other.GetComponent<Player>());
-            Debug.Log("hit");   
+            //Debug.Log("hit");   
             // 碰撞到玩家时销毁子弹
             Destroy(gameObject);
             return;

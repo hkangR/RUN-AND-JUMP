@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,12 +17,14 @@ public class BossHand : Enemy
     [SerializeField] public float floatSpeed;//左右浮动速度
     [SerializeField] public float floatTime;//左右浮动时间
     public float shakeDuration = 0.5f; // 摇晃持续时间
-
+    
+    [SerializeField] public float hammerAnimationTime;
     
     #region States
     public BossHandIdleState idleState { get;private set; }//出场和过度状态
     public BossHandReady ready { get; private set; }
     public BossHandHitState hitState { get; private set; }
+    public BossHandHammer hammerState { get; private set; }
     #endregion
     
     
@@ -32,6 +35,7 @@ public class BossHand : Enemy
         idleState = new BossHandIdleState(this, stateMachine, "RightIdle", this);
         ready = new BossHandReady(this, stateMachine, "RightReady", this);
         hitState = new BossHandHitState(this, stateMachine, "RightHit", this);
+        hammerState = new BossHandHammer(this, stateMachine, "RightHammer", this);
     }
     
     protected override void Start()
@@ -45,23 +49,43 @@ public class BossHand : Enemy
     //拍击地面（固定位置），大地震撼（在地面上则收到伤害）
     
     //在玩家上方浮动，拍击玩家（拍击到则收到伤害）
-    public IEnumerator Hit()
+    public IEnumerator Hit(Player player, bool isHammer = false)
     {
         //yield return StartCoroutine(HandShake());
         isHitting = true;
         transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 0f-yOffset), hitSpeed * Time.deltaTime);//拍击
+        
+        if (IsGroundDetected() && isHammer)
+        { 
+            HammerPlayer();
+        }
         yield return new WaitForSeconds(groundedTime);
         
-
-        yield return new WaitForSeconds(groundedTime);
         
         isHitting = false;
-        transform.position = Vector3.Lerp(transform.position, originPos,  hitSpeed * Time.deltaTime);//回到原位
         stateMachine.ChangeState(idleState);
+        transform.position = Vector3.Lerp(transform.position, originPos,  hitSpeed * Time.deltaTime);//回到原位
     }
 
+    private void HammerPlayer()
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(100f, 1f), 0f);
 
+        foreach(var hit in colliders)
+        {
+            if(hit.GetComponent<Player>() != null)
+            {
+                CauseDamage(hit.GetComponent<Player>());
+            }
+            
+        }
+    }
     
-   
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Player>() != null)
+        {
+            CauseDamage(other.GetComponent<Player>());
+        }
+    }
 }
