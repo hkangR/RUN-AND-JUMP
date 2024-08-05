@@ -30,8 +30,9 @@ public class BossHandIdleState : EnemyState
     {
         base.Update();
   
-        if (stateTimer < 0)
+        if (stateTimer < 0 && enemy.autoAttack)
         {
+            
             stateMachine.ChangeState(enemy.ready);
         }
     }

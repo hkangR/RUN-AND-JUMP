@@ -50,5 +50,19 @@ public class Boss : Enemy
         stateMachine.ChangeState(idleState);
         
     }
-    
+
+    public override void Die()
+    {
+        base.Die();
+        //进入二阶段
+        if (!isSecondStage)
+        {
+            isSecondStage = true;
+            enemyProperty.Revive(0.5f);
+        }
+        else
+        {
+            //boss死亡
+        }
+    }
 }

@@ -28,7 +28,7 @@ public class BulletSkillState : EnemyState
     public override void Update()
     {
         base.Update();
-        //Debug.Log("Bullet");
+        Debug.Log("Bullet");
         //发射
         if (!enemy.isCreatingBullet)
         {

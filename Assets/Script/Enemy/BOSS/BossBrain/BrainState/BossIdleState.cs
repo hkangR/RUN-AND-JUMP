@@ -31,7 +31,7 @@ public class BossIdleState : EnemyState
         base.Update();
         //Debug.Log("idle");
         
-        if (stateTimer < 0)
+        /*if (stateTimer < 0)
         {
             int randomSkill = Mathf.RoundToInt(Random.Range(0, 2));//随机选择攻击
             
@@ -43,6 +43,6 @@ public class BossIdleState : EnemyState
                 stateMachine.ChangeState(enemy.idleState);
             }
                 
-        }
+        }*/
     }
 }

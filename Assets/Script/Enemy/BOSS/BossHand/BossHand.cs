@@ -8,6 +8,8 @@ public class BossHand : Enemy
 {
     private bool canAttack = true;
     public bool isBusy = false;
+    public bool autoAttack = false;
+    [SerializeField] private Boss bossBrain;
     [SerializeField] private float groundedTime;
     [SerializeField] private Vector3 originPos;//初始位置
     
@@ -37,6 +39,7 @@ public class BossHand : Enemy
         ready = new BossHandReady(this, stateMachine, "RightReady", this);
         hitState = new BossHandHitState(this, stateMachine, "RightHit", this);
         hammerState = new BossHandHammer(this, stateMachine, "RightHammer", this);
+        bossBrain = GameObject.Find("BossBrain").GetComponent<Boss>();
     }
     
     protected override void Start()
@@ -103,5 +106,9 @@ public class BossHand : Enemy
             
         }
     }
-    
+
+    public override void TakeDamage(float damage)
+    {
+        bossBrain.TakeDamage(damage);//本体受伤
+    }
 }

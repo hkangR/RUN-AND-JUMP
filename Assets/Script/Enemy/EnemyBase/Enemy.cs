@@ -23,7 +23,7 @@ public class Enemy : Entity
     public float attackCooldown;
     [HideInInspector] public float lastTimeAttack;
     
-    private EnemyProperty enemyProperty;
+    protected EnemyProperty enemyProperty;
     
     public EnemyStateMachine stateMachine { get; private set; }
     
