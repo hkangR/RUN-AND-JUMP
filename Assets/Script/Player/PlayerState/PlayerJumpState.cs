@@ -31,7 +31,7 @@ public class PlayerJumpState : PlayerState
         
         if(Input.GetKeyDown(KeyCode.Mouse0))//攻击状态
         {
-            stateMachine.ChangeState(player.airAttack);
+            stateMachine.ChangeState(player.primaryAttack);
         }
         if(rb.velocity.y<0)
         {

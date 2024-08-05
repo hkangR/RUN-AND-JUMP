@@ -48,8 +48,7 @@ public class Player : Entity
     public PlayerDashState dashState { get; private set; }
     public PlayerDeathState deathState { get; private set; }
     public PlayerPrimaryAttack primaryAttack { get; private set; } 
-    public PlayerAirAttack airAttack { get; private set; } 
-    public PlayerGetHit getHitState { get;private set; }
+    //public PlayerSlideState slideState { get; private set; }
     #endregion
     
     protected override void Awake()
@@ -70,9 +69,7 @@ public class Player : Entity
         deathState = new PlayerDeathState(this, stateMachine, "Die");
         
         primaryAttack = new PlayerPrimaryAttack(this, stateMachine, "Attack");
-        airAttack = new PlayerAirAttack(this, stateMachine, "AirAttack");
         
-        getHitState = new PlayerGetHit(this, stateMachine, "GetHit");
         playerProperty = GetComponent<PlayerProperty>();
         
     }
@@ -154,18 +151,16 @@ public class Player : Entity
     }
     public void TakeDamage(float damage)
     {
+        StartCoroutine("FlashFX");
         playerProperty.RemoveProperty(PropertyType.HPValue, damage);
         if (playerProperty.hpValue <= 0)
         {
-            StartCoroutine("FlashFX");
             stateMachine.ChangeState(deathState);
         }
         else
         {
-            /*StartCoroutine("FlashFX");
             //我们要保留一点Bug，这样玩家才能知道我们的游戏叫Defeat-Bug
-            rb.velocity = new Vector2(rb.velocity.x, beAttackForce);//笑死，连续攻击能被打上天*/
-            stateMachine.ChangeState(getHitState);
+            rb.velocity = new Vector2(rb.velocity.x, beAttackForce);//笑死，连续攻击能被打上天
         }
     }
 
