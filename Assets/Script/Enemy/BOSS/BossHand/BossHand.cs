@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class BossHand : Enemy
 {
-    [SerializeField] private bool canAttack;
+    private bool canAttack = true;
+    public bool isBusy = false;
     [SerializeField] private float groundedTime;
     [SerializeField] private Vector3 originPos;//初始位置
     
@@ -28,7 +29,6 @@ public class BossHand : Enemy
     public BossHandHammer hammerState { get; private set; }
     #endregion
     
-    
     protected override void Awake()
     {
         base.Awake();
@@ -47,20 +47,18 @@ public class BossHand : Enemy
         stateMachine.Initialize(idleState);
     }
     
-    //拍击地面（固定位置），大地震撼（在地面上则收到伤害）
-    
-    //在玩家上方浮动，拍击玩家（拍击到则收到伤害）
-    public IEnumerator Hit(Player player, bool isHammer = false)
+    public IEnumerator Hit(bool isHammer = false)
     {
-        //yield return StartCoroutine(HandShake());
+        
         isHitting = true;
         DrawDamageArea();
         transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 0f-yOffset), hitSpeed * Time.deltaTime);//拍击
         
-        if (IsGroundDetected() && isHammer)
-        { 
+        if (IsGroundDetected())
+        {
             canAttack = false;
-            HammerPlayer();
+            if(isHammer)
+                HammerPlayer();
         }
         yield return new WaitForSeconds(groundedTime);
         
@@ -71,24 +69,30 @@ public class BossHand : Enemy
         canAttack = true;
     }
 
+    //Hit用的逻辑伤害判定，我也不知道为什么OnTriggerEnter触发不了
     private void DrawDamageArea()
     {
         if(!canAttack) return;
-        
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(3, 4f), 0f);
         foreach(var hit in colliders)
         {
             if(hit.GetComponent<Player>() != null)
             {
-                CauseDamage(hit.GetComponent<Player>());
+                if (canAttack)
+                {
+                    CauseDamage(hit.GetComponent<Player>());
+                    canAttack = false;//保证只击打一次
+                    break;
+                }
             }
             
         }
     }
     
+    //Hmammer用的伤害判定，主打一个烫脚
     private void HammerPlayer()
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(100f, 1f), 0f);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(100f, 0.8f), 0f);
 
         foreach(var hit in colliders)
         {

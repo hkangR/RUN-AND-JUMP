@@ -16,18 +16,21 @@ public class BossIdleState : EnemyState
     {
         //播放动画
         base.Enter();//没素材我就不播了
+        //enemy.isBusy = true;
         stateTimer = enemy.idleTime;//过度时间
     }
 
     public override void Exit()
     {
         base.Exit();
+        //enemy.isBusy = false;
     }
 
     public override void Update()
     {
         base.Update();
         //Debug.Log("idle");
+        
         if (stateTimer < 0)
         {
             int randomSkill = Mathf.RoundToInt(Random.Range(0, 2));//随机选择攻击

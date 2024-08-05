@@ -17,11 +17,13 @@ public class BossHandIdleState : EnemyState
         //播放动画
         base.Enter();//没素材我就不播了
         stateTimer = enemy.idleTime;//过度时间
+        //enemy.isBusy = true;
     }
 
     public override void Exit()
     {
         base.Exit();
+        //enemy.isBusy = false;
     }
 
     public override void Update()

@@ -15,11 +15,14 @@ public class BulletSkillState : EnemyState
     {
         //播放动画
         base.Enter();
+        enemy.isBusy = true;
+        stateTimer = enemy.shootDuration;
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.isBusy = false;
     }
 
     public override void Update()

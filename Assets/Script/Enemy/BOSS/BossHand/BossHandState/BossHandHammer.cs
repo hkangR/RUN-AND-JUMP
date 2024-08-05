@@ -21,11 +21,13 @@ public class BossHandHammer : EnemyState
         player = PlayerManager.instance.player;
         stateTimer = enemy.hammerAnimationTime;
         groundCanShake = true;
+        enemy.isBusy = true;
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.isBusy = false;
     }
 
     public override void Update()
@@ -35,7 +37,7 @@ public class BossHandHammer : EnemyState
         
         if (stateTimer < 0)
         {
-            enemy.StartCoroutine(enemy.Hit(player,true));
+            enemy.StartCoroutine(enemy.Hit(true));
         }
         if (enemy.IsGroundDetected() && groundCanShake)
         {

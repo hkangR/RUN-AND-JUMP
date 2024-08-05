@@ -6,14 +6,13 @@ using UnityEngine;
 //要不要继承Enemy呢？
 public class Boss : Enemy
 {
+    public bool isBusy = false;
     [SerializeField] public bool isCreatingBullet;
+    [SerializeField] public float shootDuration;
     [SerializeField] public List<GameObject> photonBullet;
     [SerializeField] private Vector3 bulletOffset;
-    [SerializeField] private BossHand leftHand;
-    [SerializeField] private BossHand rightHand;
-
-    [SerializeField] private bool isSecondStage;
-    //private EnemyProperty enemyProperty;
+    
+    [SerializeField] public bool isSecondStage;
     
     public BossIdleState idleState { get; private set; } //检测到玩家激活Boss,双手进入攻击状态，同时作为过度状态
     public BulletSkillState bulletSkillState { get; private set; } //弹幕攻击状态
@@ -34,10 +33,6 @@ public class Boss : Enemy
 
         stateMachine.Initialize(idleState);
     }
-    
-    //位置始终保持在屏幕上方
-    
-    //左右手自由攻击
     
     //自己能发射弹幕
     public IEnumerator CreatePhotonBullet()

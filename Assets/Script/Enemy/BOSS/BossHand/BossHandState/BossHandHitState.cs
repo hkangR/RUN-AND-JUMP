@@ -18,11 +18,13 @@ public class BossHandHitState : EnemyState
         base.Enter();
         stateTimer = enemy.shakeDuration;//动画播放时间
         player = PlayerManager.instance.player;
+        enemy.isBusy = true;
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.isBusy = false;
     }
 
     public override void Update()
@@ -39,7 +41,7 @@ public class BossHandHitState : EnemyState
   
         if (stateTimer < 0)
         { 
-            enemy.StartCoroutine(enemy.Hit(player));
+            enemy.StartCoroutine(enemy.Hit());
         }
     }
 }
