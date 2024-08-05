@@ -28,7 +28,7 @@ public class PlayerDoubleJump : PlayerState
         //Debug.Log("DoubleJump");
         if(Input.GetKeyDown(KeyCode.Mouse0))//攻击状态
         {
-            stateMachine.ChangeState(player.primaryAttack);
+            stateMachine.ChangeState(player.airAttack);
         }
         if(rb.velocity.y<0)
         {
