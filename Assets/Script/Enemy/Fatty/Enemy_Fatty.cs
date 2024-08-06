@@ -59,14 +59,46 @@ public class Enemy_Fatty : Enemy
         // 如果没有检测到玩家，返回 false
         return false;
     }
-
-    public void OnTriggerEnter2D(Collider2D other)
+    
+    public void ShakeDamageArea()
     {
-        if (other.GetComponent<Player>() != null)
+        //Gizmos.DrawWireSphere(transform.position, playerDetectedDistance);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(5f, 0.8f), 0f);
+
+        foreach(var hit in colliders)
         {
-            Debug.Log("found player");
-            CauseDamage(other.GetComponent<Player>());
+            if(hit.GetComponent<Player>() != null)
+            {
+                Debug.Log("hit");
+                CauseDamage(hit.GetComponent<Player>());
+            }
+            
         }
+    }
+    
+    public override void Die()
+    {
+        base.Die();
+
+        StartCoroutine("WaitForDie");
+    }
+
+    private IEnumerator WaitForDie()
+    {
+        stateMachine.ChangeState(deadState);
+
+        yield return new WaitForSeconds(0.5f);
+        
+        Vector3 maskPos = transform.position;
+        //stateMachine.ChangeState(deadState);
+        if (canCreateMask)
+        {
+            Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
+            Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
+            //Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
+        }
+        gameObject.SetActive(false);
+        
     }
     
 }

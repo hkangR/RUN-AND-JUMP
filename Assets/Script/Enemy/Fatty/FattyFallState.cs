@@ -45,10 +45,12 @@ public class FattyFallState : EnemyState
         {
             Debug.Log("Falling");
             enemy.isHitting = true;
-            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, enemy.hitSpeed * Time.deltaTime);
+            enemy.transform.position = Vector3.Lerp(enemy.transform.position, new Vector3(enemy.transform.position.x,0f), enemy.hitSpeed * Time.deltaTime);
 
             if (enemy.IsGroundDetected())
             {
+                CameraManager.instance.virtualCamera.CameraShake(1.5f,1f,0.5f);
+                enemy.ShakeDamageArea();
                 enemy.isHitting = false;
                 stateMachine.ChangeState(enemy.idleState);
             }
