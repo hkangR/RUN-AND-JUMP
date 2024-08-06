@@ -7,7 +7,8 @@ public class Player : Entity
 {
     public bool isOnTheAir;
     public bool isBusy { get; private set; }
-    public bool canDoubleJump;
+    public int jumpCount = 0;
+    //public bool canDoubleJump;
     public bool canMakeMask;
     [SerializeField] public GameObject maskFX;
     [SerializeField] public GameObject mask;

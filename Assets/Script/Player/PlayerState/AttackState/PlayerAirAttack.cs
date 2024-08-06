@@ -16,7 +16,7 @@ public class PlayerAirAttack : PlayerState
         //AudioManager.instance.PlaySFX(0, player.transform);
         AudioManager.instance.sfxSource = player.GetComponent<AudioSource>();
         AudioManager.instance.PlaySFX("Attack");
-        player.canDoubleJump = false;
+        //player.canDoubleJump = false;
         
         
         xInput = 0;

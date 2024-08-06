@@ -17,8 +17,8 @@ public class PlayerAirState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.canDoubleJump = true;
-        Debug.Log("Can Double Jump.");
+        //player.canDoubleJump = true;
+        //Debug.Log("Can Double Jump.");
     }
 
     public override void Update()
@@ -30,7 +30,7 @@ public class PlayerAirState : PlayerState
             stateMachine.ChangeState(player.idleState);
         }
 
-        if (player.canDoubleJump && Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]))//二段跳
+        if (player.jumpCount == 1 && Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]))//二段跳
         {
             stateMachine.ChangeState(player.doubleJump);
         }

@@ -12,6 +12,7 @@ public class PlayerJumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.jumpCount++;
         rb.velocity = new Vector2(rb.velocity.x, player.jumpForce);
     }
 
@@ -25,7 +26,7 @@ public class PlayerJumpState : PlayerState
         base.Update();
         //Debug.Log("jump");
 
-        if (player.canDoubleJump && Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//二段跳
+        if (player.jumpCount ==1 && Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//二段跳
         {
             stateMachine.ChangeState(player.doubleJump);
         }
