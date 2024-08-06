@@ -12,9 +12,8 @@ public class PlayerJumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log(player.jumpCount);
         player.jumpCount++;
-        Debug.Log(player.jumpCount);
+        //player.canDoubleJump = true;
         rb.velocity = new Vector2(rb.velocity.x, player.jumpForce);
     }
 

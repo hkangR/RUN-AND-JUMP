@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 public class Player : Entity
 {
     public bool isBusy { get; private set; }
+    //public bool canDoubleJump = false;
     public int jumpCount = 0;
     //public bool canDoubleJump;
     public bool canMakeMask;
@@ -102,11 +103,7 @@ public class Player : Entity
         dashTimer -= Time.deltaTime;
         
         CheckForDashInput();
-
-        if (rb.velocity.y == 0 && IsGroundDetected())
-        {
-            jumpCount = 0;
-        }
+        
     }
     
     //有时充当lock作用，主要在Attack中

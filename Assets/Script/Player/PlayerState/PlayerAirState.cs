@@ -27,6 +27,7 @@ public class PlayerAirState : PlayerState
         
         if(player.IsGroundDetected())//地面检测
         {
+            player.jumpCount = 0;//落地了
             stateMachine.ChangeState(player.idleState);
         }
 
@@ -36,9 +37,9 @@ public class PlayerAirState : PlayerState
             {
                 stateMachine.ChangeState(player.jumpState);
             }
-            else if (player.jumpCount == 1)//二段跳
+            else if (player.jumpCount == 1)//可以进行二段跳
             {
-                stateMachine.ChangeState(player.doubleJump);
+                stateMachine.ChangeState(player.doubleJump);//在里面jumpCount会变成2
             }
             
         }

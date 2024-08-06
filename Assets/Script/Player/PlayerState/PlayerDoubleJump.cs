@@ -13,7 +13,8 @@ public class PlayerDoubleJump : PlayerState
     {
         base.Enter();
         rb.velocity = new Vector2(rb.velocity.x, player.jumpForce);
-        player.jumpCount = 0;
+        player.jumpCount++;
+        
         //player.canDoubleJump = false;
     }
 
