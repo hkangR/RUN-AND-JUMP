@@ -30,9 +30,17 @@ public class PlayerAirState : PlayerState
             stateMachine.ChangeState(player.idleState);
         }
 
-        if (player.jumpCount == 1 && Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]))//二段跳
+        if (Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]))
         {
-            stateMachine.ChangeState(player.doubleJump);
+            if (player.jumpCount == 0)
+            {
+                stateMachine.ChangeState(player.jumpState);
+            }
+            else if (player.jumpCount == 1)//二段跳
+            {
+                stateMachine.ChangeState(player.doubleJump);
+            }
+            
         }
         
         if(Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//攻击状态
