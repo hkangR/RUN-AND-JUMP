@@ -37,7 +37,7 @@ public class PlayerAirState : PlayerState
         if(Input.GetKeyDown(KeyCode.Mouse0))//攻击状态
         {
             //Debug.Log("attack");
-            stateMachine.ChangeState(player.primaryAttack);
+            stateMachine.ChangeState(player.airAttack);
         }
         
         if(xInput != 0)

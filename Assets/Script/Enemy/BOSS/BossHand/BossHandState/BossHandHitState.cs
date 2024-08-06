@@ -31,11 +31,6 @@ public class BossHandHitState : EnemyState
     {
         base.Update();
         
-        if (!enemy.isHitting)
-        {
-            enemy.transform.position = Vector3.Lerp(enemy.transform.position, 
-                new Vector3(player.transform.position.x,enemy.transform.position.y),  enemy.floatSpeed * Time.deltaTime);
-        }
         
         //Debug.Log("hitState");
   
