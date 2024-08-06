@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public class Player : Entity
 {
+    public bool isOnTheAir;
     public bool isBusy { get; private set; }
     public bool canDoubleJump;
     public bool canMakeMask;
@@ -96,13 +97,12 @@ public class Player : Entity
     {
         
         base.Update();
-
         stateMachine.currentState.Update();
-
+        
         dashTimer -= Time.deltaTime;
 
         CheckForDashInput();
-
+        isOnTheAir = !IsGroundDetected();
     }
     
     //有时充当lock作用，主要在Attack中

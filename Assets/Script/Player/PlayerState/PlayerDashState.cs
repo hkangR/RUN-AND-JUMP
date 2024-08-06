@@ -23,7 +23,7 @@ public class PlayerDashState : PlayerState
         else base.Enter();
         AudioManager.instance.sfxSource = player.GetComponent<AudioSource>();
         AudioManager.instance.PlaySFX("Dash");
-        
+        player.canDoubleJump = false;//冲刺完不能二段跳
         player.canBeAttacked = false;
         stateTimer = player.dashDuration;
     }
@@ -48,9 +48,10 @@ public class PlayerDashState : PlayerState
         player.SetVelocity(player.dashSpeed * player.dashDir, 0);
 
         // if(stateTimer <0 && player.IsGroundDetected())
-        if(stateTimer <0 )
+        if(stateTimer <0)
         {
             stateMachine.ChangeState(player.idleState);
         }
+
     }
 }
