@@ -27,7 +27,8 @@ public class PlayerJumpState : PlayerState
         base.Update();
         //Debug.Log("jump");
 
-        if (player.jumpCount == 1 && Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//二段跳
+        //其实这里JumpCount一定会是1但是保险起见还是加个判断
+        if (player.jumpCount == 1 && Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]))//二段跳
         {
             stateMachine.ChangeState(player.doubleJump);
         }
