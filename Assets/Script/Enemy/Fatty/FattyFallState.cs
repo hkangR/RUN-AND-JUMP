@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FattyFallState : EnemyState
 {
+    Vector3 targetPos=new Vector3();
     private Enemy_Fatty enemy;
     private Player player;
     
@@ -29,26 +30,33 @@ public class FattyFallState : EnemyState
     public override void Update()
     {
         base.Update();
-        
         if (!enemy.isHitting)
         {
-            //寻找玩家位置
-            enemy.transform.position = Vector3.Lerp(enemy.transform.position, 
-                new Vector3(player.transform.position.x,enemy.transform.position.y),  enemy.jumpSpeed * Time.deltaTime);
+            // 预测玩家位置，假设玩家将继续以当前速度移动一小段时间
+            Vector2 playerVector = new Vector2(player.rb.velocity.x * 0.3f, player.rb.velocity.y * 0.3f);
+            Vector3 predictedPlayerPosition = player.transform.position +new Vector3(playerVector.x,playerVector.y);
 
-            //enemy.transform.position = Vector3.Lerp(enemy.transform.position, player.transform.position, enemy.hitSpeed * Time.deltaTime);
+            // 使用 Lerp 在跳跃时平滑移动到预测的目标位置的 X 和 Y 坐标
+            Vector3 targetXZ = new Vector3(predictedPlayerPosition.x, enemy.transform.position.y, predictedPlayerPosition.z);
+            enemy.transform.position = Vector3.Lerp(enemy.transform.position, targetXZ, enemy.jumpSpeed * Time.deltaTime);
             
-
-            //enemy.StartCoroutine(enemy.Hit(player.transform.position));
+            /*//寻找玩家位置
+            targetPos = player.transform.position;
+            enemy.transform.position = Vector3.Lerp(enemy.transform.position, 
+                new Vector3(targetPos.x,enemy.transform.position.y),  enemy.jumpSpeed * Time.deltaTime);*/
+            
         }
-        
+        Debug.Log(targetPos);
         if (stateTimer < 0f)
         {
             Debug.Log("Falling");
             enemy.isHitting = true;
-            enemy.transform.position = Vector3.Lerp(enemy.transform.position, new Vector3(enemy.transform.position.x,0f), enemy.hitSpeed * Time.deltaTime);
+            // 确保目标位置不受玩家位置变化影响
+            targetPos = new Vector3(enemy.transform.position.x, player.transform.position.y, enemy.transform.position.z);
+            enemy.transform.position = Vector3.Lerp(enemy.transform.position, targetPos, enemy.hitSpeed * Time.deltaTime);
 
-            if (enemy.IsGroundDetected())
+
+            if (Vector3.Distance(enemy.transform.position,targetPos) < 0.1f)
             {
                 AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
                 AudioManager.instance.PlaySFX("Earthquake");

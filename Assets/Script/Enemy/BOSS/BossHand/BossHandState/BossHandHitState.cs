@@ -44,7 +44,7 @@ public class BossHandHitState : EnemyState
   
         if (stateTimer < 0)
         { 
-            enemy.StartCoroutine(enemy.Hit());
+            enemy.StartCoroutine(enemy.Hit(player.transform.position));
         }
     }
 }

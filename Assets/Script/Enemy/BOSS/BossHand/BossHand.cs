@@ -50,14 +50,15 @@ public class BossHand : Enemy
         stateMachine.Initialize(idleState);
     }
     
-    public IEnumerator Hit(bool isHammer = false)
+    public IEnumerator Hit(Vector3 player, bool isHammer = false)
     {
         
         isHitting = true;
         DrawDamageArea();
-        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 0f-yOffset), hitSpeed * Time.deltaTime);//拍击
+        Vector3 targetPos = new Vector3(transform.position.x, player.y, transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, targetPos, hitSpeed * Time.deltaTime);//拍击
         
-        if (IsGroundDetected())
+        if (Vector3.Distance(transform.position,targetPos) < 0.1f)
         {
             canAttack = false;
             if(isHammer)
@@ -72,7 +73,7 @@ public class BossHand : Enemy
         canAttack = true;
     }
 
-    //Hit用的逻辑伤害判定，我也不知道为什么OnTriggerEnter触发不了
+    //Hit用的逻辑伤害判定
     private void DrawDamageArea()
     {
         if(!canAttack) return;

@@ -41,6 +41,7 @@ public class FattyJumpState : EnemyState
         
         if (!enemy.isHitting)
         {
+            Debug.Log("JumpState");
             //寻找玩家位置
             enemy.transform.position = Vector3.Lerp(enemy.transform.position, 
                 new Vector3(player.transform.position.x,enemy.transform.position.y),  enemy.jumpSpeed * Time.deltaTime);

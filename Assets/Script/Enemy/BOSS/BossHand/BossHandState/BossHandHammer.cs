@@ -37,7 +37,7 @@ public class BossHandHammer : EnemyState
         
         if (stateTimer < 0)
         {
-            enemy.StartCoroutine(enemy.Hit(true));
+            enemy.StartCoroutine(enemy.Hit(player.transform.position,true));
         }
         if (enemy.IsGroundDetected() && groundCanShake)
         {
