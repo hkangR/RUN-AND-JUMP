@@ -18,6 +18,7 @@ public class PlayerAirState : PlayerState
     {
         base.Exit();
         player.canDoubleJump = true;
+        Debug.Log("Can Double Jump.");
     }
 
     public override void Update()

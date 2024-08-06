@@ -23,6 +23,7 @@ public class PlayerJumpState : PlayerState
     public override void Update()
     {
         base.Update();
+        //Debug.Log("jump");
 
         if (player.canDoubleJump && Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//二段跳
         {

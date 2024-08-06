@@ -57,7 +57,7 @@ public class AudioManager : MonoBehaviour
         //否则播放对应Sound的clip
         else 
         {
-            Debug.Log(name);
+            //Debug.Log(name);
             sfxSource.PlayOneShot(s.clip);
         }
     }

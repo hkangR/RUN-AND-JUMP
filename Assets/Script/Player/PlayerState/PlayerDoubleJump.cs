@@ -24,6 +24,7 @@ public class PlayerDoubleJump : PlayerState
     public override void Update()
     {
         base.Update();
+        //Debug.Log("double jump");
 
         //Debug.Log("DoubleJump");
         if(Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//攻击状态
