@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 
 public class Player : Entity
 {
-    public bool isOnTheAir;
     public bool isBusy { get; private set; }
     public int jumpCount = 0;
     //public bool canDoubleJump;
@@ -101,9 +100,13 @@ public class Player : Entity
         stateMachine.currentState.Update();
         
         dashTimer -= Time.deltaTime;
-
+        
         CheckForDashInput();
-        isOnTheAir = !IsGroundDetected();
+
+        if (rb.velocity.y == 0 && IsGroundDetected())
+        {
+            jumpCount = 0;
+        }
     }
     
     //有时充当lock作用，主要在Attack中
