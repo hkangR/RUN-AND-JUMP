@@ -34,7 +34,7 @@ public class BossHandReady : EnemyState
     {
         base.Update();
         // Debug.Log("Hit State");
-        Debug.Log("isReady");
+        //Debug.Log("isReady");
 
         if (stateTimer < 0)
         {

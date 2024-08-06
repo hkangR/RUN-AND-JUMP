@@ -13,8 +13,9 @@ public class PlayerAirAttack : PlayerState
     public override void Enter()
     { 
         base.Enter();
-        AudioManager.instance.PlaySFX(0, player.transform);
-
+        //AudioManager.instance.PlaySFX(0, player.transform);
+        AudioManager.instance.sfxSource = player.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("Attack");
         player.canDoubleJump = false;
         
         
@@ -42,8 +43,7 @@ public class PlayerAirAttack : PlayerState
         player.StartCoroutine("BusyFor", 0.1f);//lock
         
         //player.canDoubleJump = true;
-        
-        AudioManager.instance.StopSFX(0);
+        AudioManager.instance.sfxSource.Stop();
         
     }
 

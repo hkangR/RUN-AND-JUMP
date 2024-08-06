@@ -37,6 +37,8 @@ public class Player : Entity
     
     private PlayerProperty playerProperty;
     private PlayerRespawn playerRespawn;
+
+    public bool hasAb3 = false;
     
     #region States
     public PlayerStateMachine stateMachine { get; private set; }
@@ -144,7 +146,7 @@ public class Player : Entity
         float amount;
         if (playerProperty) 
         {
-            amount = playerProperty.atkResult;
+            amount = playerProperty.getAtkResult();
         }
         else 
         {
@@ -190,7 +192,7 @@ public class Player : Entity
             {
                 UseItem(po.itemSO);
             }
-            ChipUI.instance.PickChip();
+            ChipUI.instance.PickChip(po.itemSO.prefab);
             Destroy(collision.gameObject);
         }
     }

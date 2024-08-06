@@ -29,6 +29,25 @@ public class SettingsMenuController : MonoBehaviour
     
     public Sprite btn_unclicked;
     public Sprite btn_clicked;
+    
+    public TextMeshProUGUI moveLeftText;
+    public TextMeshProUGUI moveRightText;
+    public TextMeshProUGUI jumpText;
+    public TextMeshProUGUI dashText;
+    public TextMeshProUGUI doubleJumpText;
+    public TextMeshProUGUI attackText;
+    public TextMeshProUGUI pauseText;
+    
+    private string[] MoveLeftKeys = { "A", "摇杆←" };
+    private string[] MoveRightKeys = { "D", "摇杆→" };
+    private string[] JumpKeys = { "Space", "B" };
+    private string[] DashKeys = { "Shift", "L1" };
+    private string[] DoubleJumpKeys = { "连按Space", "连按B" };
+    private string[] AttackKeys = { "LeftMous", "A" };
+    private string[] PauseKeys = { "Q", "Home" };
+    
+    public GameObject keyboardBtn;
+    public GameObject controllerBtn;
 
     void Start()
     {
@@ -45,17 +64,23 @@ public class SettingsMenuController : MonoBehaviour
     {
         baseMenu.SetActive(true);
         baseBtn.GetComponent<Image>().sprite = btn_clicked;
+        baseBtn.GetComponentInChildren<TextMeshProUGUI>().color = new Color(1,1,1);
         controlMenu.SetActive(false);
         controlBtn.GetComponent<Image>().sprite = btn_unclicked;
+        controlBtn.GetComponentInChildren<TextMeshProUGUI>().color = new Color(130f / 255f, 130f / 255f, 130f / 255f);
     }
 
     public void OnControl_Click()
     {
         baseMenu.SetActive(false);
         baseBtn.GetComponent<Image>().sprite = btn_unclicked;
+        baseBtn.GetComponentInChildren<TextMeshProUGUI>().color = new Color(130f / 255f, 130f / 255f, 130f / 255f);
         controlMenu.SetActive(true);
         controlBtn.GetComponent<Image>().sprite = btn_clicked;
+        controlBtn.GetComponentInChildren<TextMeshProUGUI>().color = new Color(1, 1, 1);
     }
+    
+    //BASE
  
     public void OnVolumeChange()
     {
@@ -148,13 +173,47 @@ public class SettingsMenuController : MonoBehaviour
     {
         // 返回逻辑...
         Debug.Log("返回主菜单");
+        OnBase_Click();
         gameObject.SetActive(false);
-        mainMenu.SetActive(true);
+        //mainMenu.SetActive(true);
+    }
+    
+    //CONTROL
+
+    public void OnKeyboardBtn_Click()
+    {
+        moveLeftText.text = MoveLeftKeys[0];
+        moveRightText.text = MoveRightKeys[0];
+        jumpText.text = JumpKeys[0];
+        dashText.text = DashKeys[0];
+        doubleJumpText.text = DoubleJumpKeys[0];
+        attackText.text = AttackKeys[0];
+        pauseText.text = PauseKeys[0];
+        keyboardBtn.GetComponentInChildren<TextMeshProUGUI>().color = new Color(1, 1, 1);
+        controllerBtn.GetComponentInChildren<TextMeshProUGUI>().color = new Color(130f / 255f, 130f / 255f, 130f / 255f);
     }
 
-    public void OnCustomKey()
+    public void OnControllerBtn_Click()
+    {
+        moveLeftText.text = MoveLeftKeys[1];
+        moveRightText.text = MoveRightKeys[1];
+        jumpText.text = JumpKeys[1];
+        dashText.text = DashKeys[1];
+        doubleJumpText.text = DoubleJumpKeys[1];
+        attackText.text = AttackKeys[1];
+        pauseText.text = PauseKeys[1];
+        keyboardBtn.GetComponentInChildren<TextMeshProUGUI>().color = new Color(130f / 255f, 130f / 255f, 130f / 255f);
+        controllerBtn.GetComponentInChildren<TextMeshProUGUI>().color = new Color(1, 1, 1);
+    }
+
+    public void OnDIYKey()
     {
         // 自定义按键逻辑...
         Debug.Log("自定义按键");
+    }
+
+    public void OnDefault()
+    {
+        
     }
 }

@@ -5,7 +5,7 @@ public class ChipUI : MonoBehaviour
 {
     public static ChipUI instance { get; private set; }
 
-    public GameObject chipPrefab;
+    //public GameObject chipPrefab;
     
     private int chipNum = 0;
 
@@ -14,29 +14,21 @@ public class ChipUI : MonoBehaviour
         if (instance != null && instance != this) { Destroy(instance); return; }
         instance = this;
     }
-    public void PickChip()
+    public void PickChip(GameObject newPrefab)
     {
         chipNum++;
-        UpdateChip();
+        UpdateChip(newPrefab);
     }
 
-    private void Remove()
+    private void Remove(GameObject newPrefab)
     {
         chipNum--;
-        UpdateChip();
+        UpdateChip(newPrefab);
     }
     
-    private void UpdateChip() 
+    private void UpdateChip(GameObject newPrefab) 
     {
-        foreach (Transform child in transform) 
-        {
-            Destroy(child.gameObject);
-        }
-
-        for (int i = 0; i < chipNum; i++)
-        {
-            GameObject newChip = Instantiate(chipPrefab, transform);
-            newChip.GetComponent<Rigidbody2D>().gravityScale = 0f;
-        }
+        GameObject newChip = Instantiate(newPrefab, transform);
+        newChip.GetComponent<Rigidbody2D>().gravityScale = 0f;
     }
 }

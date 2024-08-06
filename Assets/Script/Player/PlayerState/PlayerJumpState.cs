@@ -24,7 +24,7 @@ public class PlayerJumpState : PlayerState
     {
         base.Update();
 
-        if (player.canDoubleJump && Input.GetKeyDown(KeyCode.Space))//二段跳
+        if (player.canDoubleJump && Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//二段跳
         {
             stateMachine.ChangeState(player.doubleJump);
         }

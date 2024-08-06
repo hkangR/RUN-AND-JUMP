@@ -18,6 +18,8 @@ public class FattyJumpState : EnemyState
         base.Enter();
         player = PlayerManager.instance.player;
         stateTimer = 2f;
+        AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("FattyJump");
         //跳到合适的高度
         Vector3 enemyPos = enemy.transform.position;
         Vector3 targetPos = new Vector3(enemyPos.x, enemyPos.y + enemy.jumpDistance, enemyPos.z);
@@ -30,6 +32,7 @@ public class FattyJumpState : EnemyState
     public override void Exit()
     {
         base.Exit();
+        AudioManager.instance.sfxSource.Stop();
     }
 
     public override void Update()

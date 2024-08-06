@@ -12,12 +12,12 @@ public class MaskControl : MonoBehaviour
 
     private void Awake()
     {
-        camera1 = CameraManager.instance.camera1.transform;
-        mainCamera = CameraManager.instance.mainCamera.transform; 
     }
 
     private void Start()
     {
+        camera1 = CameraManager.instance.camera1.transform;
+        mainCamera = CameraManager.instance.mainCamera.transform; 
         originalpos = transform.position;
     }
 

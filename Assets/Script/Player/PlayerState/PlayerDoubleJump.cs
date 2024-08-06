@@ -26,7 +26,7 @@ public class PlayerDoubleJump : PlayerState
         base.Update();
 
         //Debug.Log("DoubleJump");
-        if(Input.GetKeyDown(KeyCode.Mouse0))//攻击状态
+        if(Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//攻击状态
         {
             stateMachine.ChangeState(player.airAttack);
         }

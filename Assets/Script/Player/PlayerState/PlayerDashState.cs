@@ -21,6 +21,8 @@ public class PlayerDashState : PlayerState
             triggerCalled = false;
         }
         else base.Enter();
+        AudioManager.instance.sfxSource = player.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("Dash");
         
         player.canBeAttacked = false;
         stateTimer = player.dashDuration;
@@ -34,7 +36,7 @@ public class PlayerDashState : PlayerState
             player.animator.SetBool(slide,false);
         }
         else base.Exit();
-        
+        AudioManager.instance.sfxSource.Stop();
         player.SetVelocity(0, rb.velocity.y);
         player.canBeAttacked = true;
     }

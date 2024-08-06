@@ -12,7 +12,9 @@ public class PlayerProperty : MonoBehaviour
 
     public float atkBonus = 1;
     public float weaponBonus = 1;
-    public float atkResult => atkValue * atkBonus * weaponBonus;
+
+    private bool ability1 = false;
+    private bool ability2 = false;
 
     public void Start() {
         //currentHP = maxHP;
@@ -34,6 +36,10 @@ public class PlayerProperty : MonoBehaviour
             case PropertyType.HPValue:
                 hpValue += value;
                 hpValue = Mathf.Clamp(hpValue, 0, maxHP);
+                if (value <= 0 && ability2)
+                {
+                    Ab2TakeDamage();
+                }
                 HealthUI.Instance.setCurrentHealth((int)hpValue);
                 return;
             case PropertyType.AttackValue:
@@ -61,6 +67,10 @@ public class PlayerProperty : MonoBehaviour
             case PropertyType.HPValue:
                 hpValue -= value;
                 hpValue = Mathf.Clamp(hpValue, 0, maxHP);
+                if (value >= 0 && ability2)
+                {
+                    Ab2TakeDamage();
+                }
                 HealthUI.Instance.setCurrentHealth((int)hpValue);
                 return;
             case PropertyType.AttackValue:
@@ -93,6 +103,17 @@ public class PlayerProperty : MonoBehaviour
     public void UnlockAbility(int index) {
         switch (index) {
             case 1:
+                ability1 = true;
+                return;
+            case 2:
+                ability2 = true;
+                timeTrackerCoroutine = StartCoroutine(TimeTracker());
+                return;
+            case 3:
+                GetComponent<Player>().hasAb3 = true;
+                return;
+            case 4:
+                GetComponent<Player>().attackCheckRadius = GetComponent<Player>().attackCheckRadius * 1.25f;
                 return;
         }
     }
@@ -100,7 +121,89 @@ public class PlayerProperty : MonoBehaviour
     public void lockAbility(int index) {
         switch (index) {
             case 1:
+                ability1 = false;
+                return;
+            case 2:
+                DisableAbility2();
+                return;
+            case 3:
+                GetComponent<Player>().hasAb3 = false;
+                return;
+            case 4:
+                GetComponent<Player>().attackCheckRadius = GetComponent<Player>().attackCheckRadius * 0.8f;
                 return;
         }
+    }
+
+    public float getAtkResult()
+    {
+        float temp = ability1 ? 0.4f * ((maxHP - hpValue) / maxHP) : 0f;
+        float temp2 = 0f;
+        if (ability2)
+        {
+            temp2 = (float)(Mathf.Floor(timeSinceLastDamage / 10f) + 2);
+        }
+
+        return atkValue * (atkBonus + temp) * weaponBonus + temp2;
+    }
+    
+    private float timeSinceLastDamage = 0f; // 未受伤时间
+    private float maxTime = 40f;         // 最大未受伤时间
+    //private bool isBuffActive = true;    // 加成是否激活
+
+    private Coroutine buffCoroutine;
+    private Coroutine timeTrackerCoroutine;
+
+    private IEnumerator TimeTracker()
+    {
+        while (true)
+        {
+            if (ability2)
+            {
+                timeSinceLastDamage += 1f; // 每秒增加一次
+                if (timeSinceLastDamage > maxTime)
+                    timeSinceLastDamage = maxTime;
+            }
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    public void Ab2TakeDamage()
+    {
+        if (ability2)
+        {
+            if (buffCoroutine != null)
+                StopCoroutine(buffCoroutine);
+
+            buffCoroutine = StartCoroutine(DisableBuffForSeconds(10));
+        }
+    }
+
+    private IEnumerator DisableBuffForSeconds(int seconds)
+    {
+        ability2 = false;
+        timeSinceLastDamage = 0f;
+        yield return new WaitForSeconds(seconds);
+        ability2 = true;
+    }
+    
+    public void DisableAbility2()
+    {
+        // 停止所有协程
+        if (timeTrackerCoroutine != null)
+        {
+            StopCoroutine(timeTrackerCoroutine);
+            timeTrackerCoroutine = null;
+        }
+        
+        if (buffCoroutine != null)
+        {
+            StopCoroutine(buffCoroutine);
+            buffCoroutine = null;
+        }
+
+        // 重置状态
+        ability2 = false;
+        timeSinceLastDamage = 0f;
     }
 }

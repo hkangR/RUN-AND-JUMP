@@ -29,12 +29,12 @@ public class PlayerAirState : PlayerState
             stateMachine.ChangeState(player.idleState);
         }
 
-        if (player.canDoubleJump && Input.GetKeyDown(KeyCode.Space))//二段跳
+        if (player.canDoubleJump && Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]))//二段跳
         {
             stateMachine.ChangeState(player.doubleJump);
         }
         
-        if(Input.GetKeyDown(KeyCode.Mouse0))//攻击状态
+        if(Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//攻击状态
         {
             //Debug.Log("attack");
             stateMachine.ChangeState(player.airAttack);

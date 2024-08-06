@@ -23,6 +23,7 @@ public class FattyFallState : EnemyState
     public override void Exit()
     {
         base.Exit();
+        AudioManager.instance.sfxSource.Stop();
     }
 
     public override void Update()
@@ -49,6 +50,8 @@ public class FattyFallState : EnemyState
 
             if (enemy.IsGroundDetected())
             {
+                AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
+                AudioManager.instance.PlaySFX("Earthquake");
                 CameraManager.instance.virtualCamera.CameraShake(1.5f,1f,0.5f);
                 enemy.ShakeDamageArea();
                 enemy.isHitting = false;

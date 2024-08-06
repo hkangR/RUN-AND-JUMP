@@ -17,8 +17,9 @@ public class PlayerPrimaryAttack : PlayerState
     public override void Enter()
     { 
         base.Enter();
-        AudioManager.instance.PlaySFX(0, player.transform);
-        
+        //AudioManager.instance.PlaySFX(0, player.transform);
+        AudioManager.instance.sfxSource = player.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("Attack");
         xInput = 0;
 
         if(comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)//连击
@@ -28,7 +29,7 @@ public class PlayerPrimaryAttack : PlayerState
 
         if (comboCounter == 2)
         {
-            CameraManager.instance.virtualCamera.CameraShake();
+            //CameraManager.instance.virtualCamera.CameraShake();
             player.attackTransform.position += player.attackOffset;
         }
         
@@ -63,8 +64,8 @@ public class PlayerPrimaryAttack : PlayerState
         if(comboCounter > 2)
             player.attackTransform.position -= player.attackOffset;
         
-        AudioManager.instance.StopSFX(0);
-        
+        //AudioManager.instance.StopSFX(0);
+        AudioManager.instance.sfxSource.Stop();
     }
 
     public override void Update()

@@ -16,6 +16,8 @@ public class CherubAttackState : EnemyState
         base.Enter();
         enemy.rb.velocity = new Vector2(0, 0);
         stateTimer = enemy.battleTime;
+        AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("CherubAttack");
     }
 
     public override void Exit()

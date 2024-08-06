@@ -12,7 +12,7 @@ public class MainMenuController : MonoBehaviour
     
     public void ShowSettings()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         settingsPanel.SetActive(true);
     }
     
