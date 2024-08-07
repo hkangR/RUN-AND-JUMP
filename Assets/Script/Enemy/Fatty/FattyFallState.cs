@@ -40,11 +40,6 @@ public class FattyFallState : EnemyState
             Vector3 targetXZ = new Vector3(predictedPlayerPosition.x, enemy.transform.position.y, predictedPlayerPosition.z);
             enemy.transform.position = Vector3.Lerp(enemy.transform.position, targetXZ, enemy.jumpSpeed * Time.deltaTime);
             
-            /*//寻找玩家位置
-            targetPos = player.transform.position;
-            enemy.transform.position = Vector3.Lerp(enemy.transform.position, 
-                new Vector3(targetPos.x,enemy.transform.position.y),  enemy.jumpSpeed * Time.deltaTime);*/
-            
         }
         //Debug.Log(targetPos);
         if (stateTimer < 0f)

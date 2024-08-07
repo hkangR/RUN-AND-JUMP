@@ -9,7 +9,7 @@ public class MaskFollow : MonoBehaviour
 {
     private Renderer renderer;
     public Material materialInstance;
-
+    
     [SerializeField] private Vector3 originalpos;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform mainCamera;

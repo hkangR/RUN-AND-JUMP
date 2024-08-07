@@ -46,7 +46,5 @@ public class BulletControl : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        Destroy(gameObject);
-       //Debug.Log(other.ToString());
     }
 }

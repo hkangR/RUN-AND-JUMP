@@ -73,8 +73,11 @@ public class Enemy_Cherub : Enemy
         isCreatingBullet = true;
         for (int i = 0; i < photonBullet.Count; i++)
         {
+            //Debug.Log("CreatePhotonBullet");
             yield return new WaitForSeconds(0.5f);
-            Instantiate(photonBullet[i], transform);
+            Debug.Log("CreatePhotonBullet");
+            GameObject gameObject= Instantiate(photonBullet[i], transform);
+            Debug.Log(gameObject.ToString());
             //GameObject pb = Instantiate(photonBullet[i], transform);
             //pb.GetComponent<BulletControl>().enemy = gameObject;
         }
