@@ -5,7 +5,7 @@ using System.Collections;
 public class FloatingImageController : MonoBehaviour 
 {
     public GameObject floatingImagePrefab;
-    public float displayDuration = 2f; // 图片显示的时间
+    public float displayDuration = 1f; // 图片显示的时间
     public float fadeDuration = 1f; // 图片淡出的时间
 
     public void SpawnFloatingImage(Transform targetTransform) 

@@ -6,24 +6,10 @@ using UnityEngine.SceneManagement;
 public class PauseMenuController : MonoBehaviour
 {
     public GameObject settingsMenu;
-
-    public static PauseMenuController Instance;
+    
     public GameObject pauseMenuUI;
 
     private bool isPaused = false;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Update()
     {

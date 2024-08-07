@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SettingsMenuController : MonoBehaviour
 {
-    [SerializeField] public GameObject mainMenu;
+    //[SerializeField] public GameObject mainMenu;
     [SerializeField] public GameObject baseMenu;
     [SerializeField] public GameObject controlMenu;
     

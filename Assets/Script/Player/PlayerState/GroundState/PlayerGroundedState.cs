@@ -23,7 +23,7 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
-        if(Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//攻击状态
+        if(Input.GetKeyDown(GlobalManager.instance.keyMappings["Attack"]))//攻击状态
         {
             //Debug.Log("attack");
             stateMachine.ChangeState(player.primaryAttack);
@@ -32,7 +32,7 @@ public class PlayerGroundedState : PlayerState
         if (!player.IsGroundDetected())//检测是否在地面上
             stateMachine.ChangeState(player.airState);
             
-        if(Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]) && player.IsGroundDetected())//地面可跳跃
+        if(Input.GetKeyDown(GlobalManager.instance.keyMappings["Jump"]) && player.IsGroundDetected())//地面可跳跃
         {
             stateMachine.ChangeState(player.jumpState);
         }

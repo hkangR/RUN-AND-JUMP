@@ -7,6 +7,7 @@ TagManager:
   - Pickable
   - Chip
   - Boss
+  - jumpPlane
   layers:
   - Default
   - TransparentFX

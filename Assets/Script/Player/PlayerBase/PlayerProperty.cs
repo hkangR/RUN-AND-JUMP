@@ -32,6 +32,7 @@ public class PlayerProperty : MonoBehaviour
                 maxHP += value;
                 hpValue += value;
                 HealthUI.Instance.setMaxHealth((int)maxHP);
+                HealthUI.Instance.setCurrentHealth((int)hpValue);
                 return;
             case PropertyType.HPValue:
                 hpValue += value;
@@ -40,6 +41,7 @@ public class PlayerProperty : MonoBehaviour
                 {
                     Ab2TakeDamage();
                 }
+                HealthUI.Instance.setMaxHealth((int)maxHP);
                 HealthUI.Instance.setCurrentHealth((int)hpValue);
                 return;
             case PropertyType.AttackValue:
@@ -63,6 +65,7 @@ public class PlayerProperty : MonoBehaviour
                 maxHP -= value;
                 hpValue = Mathf.Clamp(hpValue, 0, maxHP);
                 HealthUI.Instance.setMaxHealth((int)maxHP);
+                HealthUI.Instance.setCurrentHealth((int)hpValue);
                 return;
             case PropertyType.HPValue:
                 hpValue -= value;
@@ -71,6 +74,7 @@ public class PlayerProperty : MonoBehaviour
                 {
                     Ab2TakeDamage();
                 }
+                HealthUI.Instance.setMaxHealth((int)maxHP);
                 HealthUI.Instance.setCurrentHealth((int)hpValue);
                 return;
             case PropertyType.AttackValue:

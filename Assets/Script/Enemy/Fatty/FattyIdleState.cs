@@ -26,7 +26,7 @@ public class FattyIdleState : EnemyState
     public override void Update()
     {
         base.Update();
-        Debug.Log("Idle State");
+        //Debug.Log("Idle State");
         if(enemy.FattyPlayerDetected() && stateTimer < 0f)
         {
             stateMachine.ChangeState(enemy.jumpState);

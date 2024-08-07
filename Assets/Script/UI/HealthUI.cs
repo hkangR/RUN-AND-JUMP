@@ -38,7 +38,7 @@ public class HealthUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        for (int i = 0; i < maxHealth / 2; i++) 
+        for (float i = 0; i < (float)maxHealth / 2f; i++)
         {
             GameObject heartObj = Instantiate(heartPrefab, transform);
             Heart heart = heartObj.GetComponent<Heart>();

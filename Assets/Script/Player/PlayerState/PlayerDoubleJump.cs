@@ -29,13 +29,17 @@ public class PlayerDoubleJump : PlayerState
         //Debug.Log("double jump");
 
         //Debug.Log("DoubleJump");
-        if(Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//攻击状态
+        if(Input.GetKeyDown(GlobalManager.instance.keyMappings["Attack"]))//攻击状态
         {
             stateMachine.ChangeState(player.airAttack);
         }
         if(rb.velocity.y<0)
         {
             stateMachine.ChangeState(player.airState); 
+        }
+        if(xInput != 0)
+        {
+            player.SetVelocity(player.moveSpeed * 0.8f * xInput, rb.velocity.y);
         }
     }
 }

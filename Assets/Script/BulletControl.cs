@@ -26,7 +26,7 @@ public class BulletControl : MonoBehaviour
     {
         rb.gravityScale = 0f;
         originalPos = transform.position;
-        player = PlayerManager.instance.player.gameObject;
+        player = GlobalManager.instance.player.gameObject;
         // 计算射向玩家的方向向量
         Vector3 shootDirection = (player.transform.position - originalPos).normalized;
 

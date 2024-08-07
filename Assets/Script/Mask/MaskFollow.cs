@@ -21,7 +21,7 @@ public class MaskFollow : MonoBehaviour
 
     private void Awake()
     {
-        playerTransform = PlayerManager.instance.transform;
+        playerTransform = GlobalManager.instance.transform;
         camera1 = CameraManager.instance.camera1.transform;
         mainCamera = CameraManager.instance.mainCamera.transform; 
         

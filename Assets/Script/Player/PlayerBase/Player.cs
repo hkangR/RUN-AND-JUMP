@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class Player : Entity
 {
     public bool isBusy { get; private set; }
-    //public bool canDoubleJump = false;
+    
+    [Header("Jump Info")]
     public int jumpCount = 0;
-    //public bool canDoubleJump;
+    [SerializeField] public bool canDoubleJump;
+    
+    [Space]
     public bool canMakeMask;
     [SerializeField] public GameObject maskFX;
     [SerializeField] public GameObject mask;
@@ -16,30 +20,28 @@ public class Player : Entity
     [SerializeField] public Vector3 attackOffset = new Vector3(0.7f, 0, 0);
     
     [Header("Attack details")]
-    public Vector2[] attackMovement;
     public float counterAttackDuration = 0.2f;
+    public Vector2[] attackMovement;
     public float beAttackForce = 5f;
     public bool canBeAttacked = true;
-    
-    [Header("Move Info")]
+
+    [Header("Move Info")] 
     [SerializeField] public float moveSpeed = 8f;
     [SerializeField] public float jumpForce = 12f;
-    private float defaultMoveSpeed;//为 减速/加速 buff留的
-    private float defaultJumpForce;
-    
+    [SerializeField] public float jumpPlaneDetectionDistance;
+
     [Header("Dash Info")]
+    [SerializeField] public bool canDash;
     [SerializeField] public float dashSpeed;
     [SerializeField] public float dashDuration;
     [SerializeField] public float dashTimer;
     [SerializeField] private float dashCooldown;
 
+    private List<Collider2D> jumpPlanes;
+
     public float dashDir { get; private set; }
     
-    private float defaultDashSpeed;//也是为 减速/加速 buff留的
-    
     private PlayerProperty playerProperty;
-    private PlayerRespawn playerRespawn;
-
     public bool hasAb3 = false;
     
     #region States
@@ -85,13 +87,10 @@ public class Player : Entity
     {
         base.Start();
         stateMachine.Initialize(idleState);
+        
+        // 查找场景中所有具有目标标签的对象的Collider组件
+        jumpPlanes = GlobalManager.instance.jumpPlanes;
 
-        playerRespawn = GetComponent<PlayerRespawn>();
-        
-        defaultMoveSpeed = moveSpeed;
-        defaultJumpForce = jumpForce;
-        defaultDashSpeed = dashSpeed;
-        
     }
     
     protected override void Update()
@@ -103,6 +102,15 @@ public class Player : Entity
         dashTimer -= Time.deltaTime;
         
         CheckForDashInput();
+        
+        foreach (var collider in jumpPlanes)
+        {
+            if (collider != null)
+            {
+                Physics2D.IgnoreCollision(cd, collider, rb.velocity.y > 0);
+            }
+        }
+        
         
     }
     
@@ -123,11 +131,11 @@ public class Player : Entity
         
         if (IsWallDetected()) return;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0 && canDash)
         {
             dashTimer = dashCooldown;
                 
-            dashDir = Input.GetAxisRaw("Horizontal");
+            dashDir = Input.GetAxisRaw(GlobalManager.instance.axisMappings["Horizontal"]);
 
             if (dashDir == 0) dashDir = facingDir;
             
@@ -135,7 +143,7 @@ public class Player : Entity
         }
     }
     
-    
+
     public override void Die() {
         stateMachine.ChangeState(deathState);
     }
@@ -196,7 +204,9 @@ public class Player : Entity
             ChipUI.instance.PickChip(po.itemSO.prefab);
             Destroy(collision.gameObject);
         }
+        
     }
+    
 
     //使用物体
     public void UseItem(ItemSO itemSO) 
@@ -223,7 +233,8 @@ public class Player : Entity
         Destroy(maskMat);
     }
     
-    public void onDead() {
-        playerRespawn.Respawn();
+    public void onDead()
+    {
+        GlobalManager.instance.PlayerRespawn();
     }
 }

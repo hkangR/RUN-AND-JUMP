@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   name: "\u7075\u611F"
-  description: null
+  description: "\u73A9\u5BB6\u5728\u9047\u5230\u9690\u85CF\u7684\u89E3\u8C1C\u4E8B\u4EF6\u65F6,\u4F1A\u83B7\u5F97\u63D0\u793A"
+  field: "\u8DD1\u56FE"
   itemType: 2
   propertyList:
   - propertyType: 4

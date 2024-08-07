@@ -31,20 +31,20 @@ public class PlayerAirState : PlayerState
             stateMachine.ChangeState(player.idleState);
         }
 
-        if (Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]))
+        if (Input.GetKeyDown(GlobalManager.instance.keyMappings["Jump"]))
         {
             if (player.jumpCount == 0)
             {
                 stateMachine.ChangeState(player.jumpState);
             }
-            else if (player.jumpCount == 1)//可以进行二段跳
+            else if (player.jumpCount == 1 && player.canDoubleJump)//可以进行二段跳
             {
                 stateMachine.ChangeState(player.doubleJump);//在里面jumpCount会变成2
             }
             
         }
         
-        if(Input.GetKeyDown(InputManager.instance.keyMappings["Attack"]))//攻击状态
+        if(Input.GetKeyDown(GlobalManager.instance.keyMappings["Attack"]))//攻击状态
         {
             //Debug.Log("attack");
             stateMachine.ChangeState(player.airAttack);

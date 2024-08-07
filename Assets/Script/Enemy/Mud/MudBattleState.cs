@@ -17,7 +17,7 @@ public class MudBattleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        player = PlayerManager.instance.player.transform;
+        player = GlobalManager.instance.player.transform;
         enemy.StartCoroutine(WaitForRush(0.5f));
     }
 

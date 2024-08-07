@@ -17,7 +17,7 @@ public class FattyFallState : EnemyState
     {
         base.Enter();
         stateTimer = enemy.floatTime;
-        player = PlayerManager.instance.player;
+        player = GlobalManager.instance.player;
 
     }
 
@@ -46,7 +46,7 @@ public class FattyFallState : EnemyState
                 new Vector3(targetPos.x,enemy.transform.position.y),  enemy.jumpSpeed * Time.deltaTime);*/
             
         }
-        Debug.Log(targetPos);
+        //Debug.Log(targetPos);
         if (stateTimer < 0f)
         {
             Debug.Log("Falling");

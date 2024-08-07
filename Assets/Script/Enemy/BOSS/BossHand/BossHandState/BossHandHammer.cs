@@ -18,7 +18,7 @@ public class BossHandHammer : EnemyState
     {
         //播放动画
         base.Enter();
-        player = PlayerManager.instance.player;
+        player = GlobalManager.instance.player;
         stateTimer = enemy.hammerAnimationTime;
         groundCanShake = true;
         enemy.isBusy = true;

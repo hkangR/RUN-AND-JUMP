@@ -21,8 +21,6 @@ public class PlayerAnimationTrigger : MonoBehaviour
             Instantiate(player.mask,player.attackCheck.position,Quaternion.identity);
             
         }
-
-        
         
         Collider2D[] colliders = Physics2D.OverlapCircleAll(player.attackCheck.position,player.attackCheckRadius);
 

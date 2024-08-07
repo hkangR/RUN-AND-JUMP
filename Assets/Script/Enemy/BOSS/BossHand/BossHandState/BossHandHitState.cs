@@ -17,7 +17,7 @@ public class BossHandHitState : EnemyState
         //播放动画
         base.Enter();
         stateTimer = enemy.shakeDuration;//动画播放时间
-        player = PlayerManager.instance.player;
+        player = GlobalManager.instance.player;
         enemy.isBusy = true;
     }
 

@@ -16,7 +16,7 @@ public class FattyJumpState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        player = PlayerManager.instance.player;
+        player = GlobalManager.instance.player;
         stateTimer = 2f;
         AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
         AudioManager.instance.PlaySFX("FattyJump");

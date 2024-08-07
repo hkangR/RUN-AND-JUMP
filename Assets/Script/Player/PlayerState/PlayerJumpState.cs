@@ -28,7 +28,7 @@ public class PlayerJumpState : PlayerState
         //Debug.Log("jump");
 
         //其实这里JumpCount一定会是1但是保险起见还是加个判断
-        if (player.jumpCount == 1 && Input.GetKeyDown(InputManager.instance.keyMappings["Jump"]))//二段跳
+        if (player.jumpCount == 1 && player.canDoubleJump && Input.GetKeyDown(GlobalManager.instance.keyMappings["Jump"]))//二段跳
         {
             stateMachine.ChangeState(player.doubleJump);
         }
@@ -40,6 +40,10 @@ public class PlayerJumpState : PlayerState
         if(rb.velocity.y<0)
         {
             stateMachine.ChangeState(player.airState); 
+        }
+        if(xInput != 0)
+        {
+            player.SetVelocity(player.moveSpeed * 0.8f * xInput, rb.velocity.y);
         }
     }
 }

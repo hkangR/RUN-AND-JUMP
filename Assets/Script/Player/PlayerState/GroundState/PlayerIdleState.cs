@@ -25,9 +25,7 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Update()
     {
         base.Update();
-
-        //if (player.IsWallDetected()) return;//触碰墙体来回切换问题
-
+        
         if (xInput != 0 && !player.isBusy)
         {
             stateMachine.ChangeState(player.moveState);
