@@ -20,13 +20,13 @@ public class CheckArea : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision) 
-    {
-        if (controlOrMap && collision.CompareTag("Player"))
-        {
-            itemGetHintController.HideC();
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision) 
+    //{
+    //    if (controlOrMap && collision.CompareTag("Player"))
+    //    {
+    //       itemGetHintController.HideC();
+    //    }
+    //}
 
     private void TriggerEffect()
     {
@@ -34,13 +34,16 @@ public class CheckArea : MonoBehaviour
 
         if (controlOrMap)
         {
+            //itemGetHintController.initC(storedSrting);
+            itemGetHintController.ShowUI(3f,false);
             itemGetHintController.initC(storedSrting);
-            itemGetHintController.ShowC();
+            Destroy(gameObject);
         }
         else
         {
-            itemGetHintController.initM(storedSrting);
+            //itemGetHintController.initM(storedSrting);
             itemGetHintController.ShowUI(5f,false);
+            itemGetHintController.initM(storedSrting);
             //Destroy(gameObject);
         }
     }

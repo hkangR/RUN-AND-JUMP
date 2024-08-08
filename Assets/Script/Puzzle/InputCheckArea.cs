@@ -25,6 +25,8 @@ public class InputCheckArea : MonoBehaviour
 
     public ItemGetHintController itemGetHintController = null;
     
+    public GameObject mask;
+    
     private void OnTriggerEnter2D(Collider2D collision) 
     {
         if (collision.CompareTag("Player")) 
@@ -112,6 +114,12 @@ public class InputCheckArea : MonoBehaviour
             //Player player = PlayerManager.instance.player;
             player.GetComponent<PlayerProperty>().AddProperty(PropertyBonus.propertyType,PropertyBonus.value);
         }
+        
+        GameObject mask1 = Instantiate(mask, transform.position,Quaternion.identity);
+        mask1.transform.localScale = new Vector3(2f,2f,2f);
+        
+        GameObject mask2 = Instantiate(mask, transform.position,Quaternion.identity);
+        mask2.transform.localScale = new Vector3(2f,2f,2f);
 
         Destroy(gameObject);
     }

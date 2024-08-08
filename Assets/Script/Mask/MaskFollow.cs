@@ -21,9 +21,7 @@ public class MaskFollow : MonoBehaviour
 
     private void Awake()
     {
-        playerTransform = GlobalManager.instance.transform;
-        camera1 = CameraManager.instance.camera1.transform;
-        mainCamera = CameraManager.instance.mainCamera.transform; 
+        //playerTransform = GlobalManager.instance.transform;
         
         parent = GameObject.Find("MaskParent");
         renderer = gameObject.GetComponent<Renderer>();
@@ -35,6 +33,9 @@ public class MaskFollow : MonoBehaviour
     
     void Start()
     {
+        camera1 = CameraManager.instance.camera1.transform;
+        mainCamera = CameraManager.instance.mainCamera.transform; 
+        
         originalpos = transform.position;
         transform.Rotate(90,90,-90);
         

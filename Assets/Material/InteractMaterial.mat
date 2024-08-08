@@ -61,7 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AnimationTime: 2
+    - _AnimationTime: 0.39
     - _BumpScale: 1
     - _CreationTime: 0
     - _CurrentTime: 0
@@ -71,7 +71,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GridNum: 64
+    - _GridNum: 13
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1

@@ -201,7 +201,6 @@ public class Player : Entity
             {
                 UseItem(po.itemSO);
             }
-            ChipUI.instance.PickChip(po.itemSO.prefab);
             Destroy(collision.gameObject);
         }
         
@@ -217,6 +216,7 @@ public class Player : Entity
                 playerProperty.UseItem(itemSO);
                 break;
             case ItemType.Chip:
+                ChipUI.instance.PickChip(itemSO.prefab);
                 playerProperty.UseItem(itemSO);
                 break;
             default:

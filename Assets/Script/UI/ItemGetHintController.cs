@@ -117,7 +117,10 @@ public class ItemGetHintController : MonoBehaviour
 
     public void HideC()
     {
-        infoUIControl.SetActive(false);
+        if (infoUIControl.activeSelf)
+        {
+            infoUIControl.SetActive(false);
+        }
         if (showUICoroutine == null)
         {
             clear();

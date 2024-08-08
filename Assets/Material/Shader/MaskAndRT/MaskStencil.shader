@@ -4,8 +4,8 @@ Shader "Custom/MaskStencil"
     {
         _CreationTime ("Creation Time", Float) = 0.0
         _CurrentTime ("Current Time", Float) = 0.0
-        _AnimationTime ("Animation Time", Range(0, 3)) = 2.0
-        _GridNum ("GridNum", Range (1,128)) = 64
+        _AnimationTime ("Animation Time", Range(0, 10)) = 2.0
+        _GridNum ("GridNum", Range (1,2048)) = 64
         _Progess ("Progress", Range(0,1)) = 0
     }
     SubShader

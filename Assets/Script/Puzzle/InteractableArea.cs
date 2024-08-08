@@ -17,18 +17,44 @@ public class InteractableArea : MonoBehaviour
     
     public ItemGetHintController itemGetHintController;
 
+    public GetCurrentLayer getCurrentLayer;
+    public bool layerRequired = false;
+
+    public GameObject mask;
+
     void Update()
     {
         if (playerInArea)
         {
             if (ImagePrefab != null && iconSpawnPoint != null)
             {
-                floatingImageController.floatingImagePrefab = ImagePrefab;
-                floatingImageController.SpawnFloatingImage(iconSpawnPoint);   
+                if (layerRequired)
+                {
+                    if (getCurrentLayer.intersectionCount >= 2)
+                    {
+                        floatingImageController.floatingImagePrefab = ImagePrefab;
+                        floatingImageController.SpawnFloatingImage(iconSpawnPoint);   
+                    }
+                }
+                else
+                {
+                    floatingImageController.floatingImagePrefab = ImagePrefab;
+                    floatingImageController.SpawnFloatingImage(iconSpawnPoint);   
+                }
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
-                TriggerEffect();
+                if (layerRequired)
+                {
+                    if (getCurrentLayer.intersectionCount >= 2)
+                    {
+                        TriggerEffect();
+                    }
+                }
+                else
+                {
+                    TriggerEffect();
+                }
             }
         }
     }
@@ -65,7 +91,9 @@ public class InteractableArea : MonoBehaviour
         itemGetHintController.ShowUI(3f, false);
         itemGetHintController.init(nameSentForShow, textSentForShow);
         itemGetHintController.initC(hintSentForShow);
-        
+
+        Instantiate(mask, transform.position,Quaternion.identity);
+        Instantiate(mask, transform.position,Quaternion.identity);
         Destroy(gameObject);
     }
 }
