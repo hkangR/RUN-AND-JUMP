@@ -29,6 +29,7 @@ Shader "CustomSprite/Ascii ArtCS"
 			#pragma fragment frag
 
 			#include "UnityCG.cginc"
+			#include "Assets/Material/Shader/ShaderUtility.hlsl"
 
 			struct appdata
 			{
@@ -61,13 +62,6 @@ Shader "CustomSprite/Ascii ArtCS"
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				return o;
-			}
-
-			float character(int n, float2 p, float secondaryEffect)
-			{
-				// Custom function for character representation
-				// Placeholder: actual implementation depends on specific requirements
-				return 1.0;
 			}
 
 			half4 frag(v2f i) : SV_Target
