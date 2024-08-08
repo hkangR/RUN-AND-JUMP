@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy_Cherub : Enemy
 {
     [SerializeField] public float launchSpeed;
     [SerializeField] public float flyTime;
-    //[SerializeField] public GameObject bulletPrefab;
-    [SerializeField] public List<GameObject> photonBullet;
+    [SerializeField] public List<GameObject> PhotonBullet;
     [SerializeField] public bool isCreatingBullet;
     
     #region States
@@ -36,6 +36,7 @@ public class Enemy_Cherub : Enemy
         rb.gravityScale = 0f;
 
         stateMachine.Initialize(idleState);
+        
     }
     
     protected override void Update()
@@ -71,19 +72,14 @@ public class Enemy_Cherub : Enemy
     public IEnumerator CreatePhotonBullet()
     {
         isCreatingBullet = true;
-        for (int i = 0; i < photonBullet.Count; i++)
+        for (int i = 0; i < PhotonBullet.Count; i++)
         {
-            //Debug.Log("CreatePhotonBullet");
+            Debug.Log("Create");
+            
+            ObjectPool.instance.GetObject(PhotonBullet[i], transform);
             yield return new WaitForSeconds(0.5f);
-            Debug.Log("CreatePhotonBullet");
-            GameObject gameObject= Instantiate(photonBullet[i], transform);
-            Debug.Log(gameObject.ToString());
-            //GameObject pb = Instantiate(photonBullet[i], transform);
-            //pb.GetComponent<BulletControl>().enemy = gameObject;
         }
-        
         isCreatingBullet = false;
-        //stateMachine.ChangeState(fallState);
     }
     
     public override void Die()
@@ -100,12 +96,10 @@ public class Enemy_Cherub : Enemy
         yield return new WaitForSeconds(0.5f);
         
         Vector3 maskPos = transform.position;
-        //stateMachine.ChangeState(deadState);
         if (canCreateMask)
         {
             Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
             Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
-            //Instantiate(mask, maskPos, Quaternion.identity);//原地生成mask
         }
         gameObject.SetActive(false);
         

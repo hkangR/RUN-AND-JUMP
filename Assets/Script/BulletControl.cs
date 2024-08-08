@@ -20,20 +20,26 @@ public class BulletControl : MonoBehaviour
         cd = GetComponent<CircleCollider2D>();
         enemy = GetComponentInParent<Enemy>().gameObject;
     }
+    
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb.gravityScale = 0f;
         originalPos = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        transform.localPosition = Vector3.zero;
         player = GlobalManager.instance.player.gameObject;
         // 计算射向玩家的方向向量
         Vector3 shootDirection = (player.transform.position - originalPos).normalized;
 
         rb.velocity = shootDirection * bulletSpeed;
-        
+        // 启动协程，在五秒后销毁子弹
+        StartCoroutine(DestroyAfterDelay(5f));
     }
-        
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -41,10 +47,18 @@ public class BulletControl : MonoBehaviour
         {
             //造成伤害
             enemy.GetComponent<Enemy>().CauseDamage(other.GetComponent<Player>());
-            //Debug.Log("hit");   
             // 碰撞到玩家时销毁子弹
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            ObjectPool.instance.PushObject(gameObject);
             return;
         }
+        
     }
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        //Destroy(gameObject);
+        ObjectPool.instance.PushObject(gameObject);
+    }
+
 }
