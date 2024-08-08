@@ -12,6 +12,7 @@ public class PlayerDeathState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.isDead = true;
         player.SetVelocity(0,0);
     }
 

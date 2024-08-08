@@ -17,6 +17,8 @@ public class MudBattleState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("MudIdle");
         player = GlobalManager.instance.player.transform;
         enemy.StartCoroutine(WaitForRush(0.5f));
     }
@@ -31,6 +33,7 @@ public class MudBattleState : EnemyState
     public override void Exit()
     {
         base.Exit();
+        AudioManager.instance.sfxSource.Stop();
     }
 
     public override void Update()

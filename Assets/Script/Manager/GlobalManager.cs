@@ -13,6 +13,8 @@ public class GlobalManager : MonoBehaviour
     public Player player;
     public Transform spawnPoint;
     public List<Collider2D> jumpPlanes;
+    public DeadmenuController deadmenuController;
+    public VictorymenuController victorymenuController;
 
     private void Awake()
     {

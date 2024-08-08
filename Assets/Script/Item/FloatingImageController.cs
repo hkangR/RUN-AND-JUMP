@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
@@ -7,6 +8,10 @@ public class FloatingImageController : MonoBehaviour
     public GameObject floatingImagePrefab;
     public float displayDuration = 1f; // 图片显示的时间
     public float fadeDuration = 1f; // 图片淡出的时间
+
+    private void Awake()
+    {
+    }
 
     public void SpawnFloatingImage(Transform targetTransform) 
     {

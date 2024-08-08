@@ -14,6 +14,8 @@ public class WormAttackState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("WormAttack");
     }
 
     public override void Exit()
@@ -21,6 +23,7 @@ public class WormAttackState : EnemyState
         base.Exit();
 
         enemy.lastTimeAttack = Time.time;
+        AudioManager.instance.sfxSource.Stop();
     }
 
     public override void Update()

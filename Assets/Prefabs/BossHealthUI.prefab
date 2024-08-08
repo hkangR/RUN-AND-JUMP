@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 901974443200494022}
   - component: {fileID: 3430200739140911643}
   - component: {fileID: 5050033336936940629}
+  - component: {fileID: 9066701040983757225}
   m_Layer: 5
   m_Name: ProgressBar
   m_TagString: Untagged
@@ -104,6 +105,25 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &9066701040983757225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613190493916022174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa7cd91fc3abbaa4293db50cfd45d832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progress: {fileID: 3770387648230183197}
+  bg: {fileID: 6079467651977619774}
+  stageOnePrpogress: {fileID: 21300000, guid: 92d8a555dd4335446936d52562772c83, type: 3}
+  stageTwoPrpogress: {fileID: 21300000, guid: 53434093de31cca4d8dea107cc44fb85, type: 3}
+  enemy: {fileID: 0}
+  currentHealth: 0
+  maxHealth: 0
 --- !u!1 &2846527959045549593
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,13 +133,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5709620934755868444}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BossHealthUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5709620934755868444
 Transform:
   m_ObjectHideFlags: 0
@@ -134,7 +154,7 @@ Transform:
   m_Children:
   - {fileID: 4804874416196323662}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7127714032470850944
 GameObject:
@@ -221,7 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4804874416196323662}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

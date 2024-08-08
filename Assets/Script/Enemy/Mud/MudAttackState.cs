@@ -15,6 +15,8 @@ public class MudAttackState : EnemyState
     {
         //Debug.Log("dash");
         base.Enter();
+        AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("MudAttack");
         stateTimer = enemy.dashTime;
     }
 
@@ -23,7 +25,7 @@ public class MudAttackState : EnemyState
         base.Exit();
 
         enemy.lastTimeAttack = Time.time;
-        
+        AudioManager.instance.sfxSource.Stop();
     }
 
     public override void Update()

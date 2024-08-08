@@ -42,7 +42,7 @@ public class CheckArea : MonoBehaviour
         else
         {
             //itemGetHintController.initM(storedSrting);
-            itemGetHintController.ShowUI(5f,false);
+            itemGetHintController.ShowUI(1f,false);
             itemGetHintController.initM(storedSrting);
             //Destroy(gameObject);
         }

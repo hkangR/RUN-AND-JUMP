@@ -17,8 +17,6 @@ public class AudioManager : MonoBehaviour
         if (instance == null) 
         {
             instance = this;
-            //在场景切换时不销毁该对象
-            DontDestroyOnLoad(gameObject);
         }
         else 
         {

@@ -31,6 +31,10 @@ public class PlayerProperty : MonoBehaviour
             case PropertyType.MaxHPValue:
                 maxHP += value;
                 hpValue += value;
+                if (hpValue <= 0)
+                {
+                    return;
+                }
                 HealthUI.Instance.setMaxHealth((int)maxHP);
                 HealthUI.Instance.setCurrentHealth((int)hpValue);
                 return;
@@ -40,6 +44,10 @@ public class PlayerProperty : MonoBehaviour
                 if (value <= 0 && ability2)
                 {
                     Ab2TakeDamage();
+                }
+                if (hpValue <= 0)
+                {
+                    return;
                 }
                 HealthUI.Instance.setMaxHealth((int)maxHP);
                 HealthUI.Instance.setCurrentHealth((int)hpValue);
@@ -64,6 +72,10 @@ public class PlayerProperty : MonoBehaviour
             case PropertyType.MaxHPValue:
                 maxHP -= value;
                 hpValue = Mathf.Clamp(hpValue, 0, maxHP);
+                if (hpValue <= 0)
+                {
+                    return;
+                }
                 HealthUI.Instance.setMaxHealth((int)maxHP);
                 HealthUI.Instance.setCurrentHealth((int)hpValue);
                 return;
@@ -73,6 +85,10 @@ public class PlayerProperty : MonoBehaviour
                 if (value >= 0 && ability2)
                 {
                     Ab2TakeDamage();
+                }
+                if (hpValue <= 0)
+                {
+                    return;
                 }
                 HealthUI.Instance.setMaxHealth((int)maxHP);
                 HealthUI.Instance.setCurrentHealth((int)hpValue);

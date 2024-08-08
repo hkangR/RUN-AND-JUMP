@@ -1936,7 +1936,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -67.94873, w: 0}
+  m_margin: {x: 0, y: 0, z: -678.87964, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2103,7 +2103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4113143549793893400}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ItemGetHintUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

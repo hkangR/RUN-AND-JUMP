@@ -6,7 +6,7 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager instance;
 
-    public Camera mainCamera;
+    public Camera mainCamera => GameObject.Find("Main Camera").GetComponent<Camera>();
     public Camera camera1;
     public VirtualCamera virtualCamera;
 

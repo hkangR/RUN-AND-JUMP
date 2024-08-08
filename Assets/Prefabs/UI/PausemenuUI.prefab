@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9188769986933703946}
   - component: {fileID: 2024472130038703554}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PausemenuUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

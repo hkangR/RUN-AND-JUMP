@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 public class Player : Entity
 {
     public bool isBusy { get; private set; }
+    public bool isDead;
     
     [Header("Jump Info")]
     public int jumpCount = 0;
@@ -131,7 +132,7 @@ public class Player : Entity
         
         if (IsWallDetected()) return;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0 && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0 && canDash && !isDead)
         {
             dashTimer = dashCooldown;
                 
@@ -235,6 +236,7 @@ public class Player : Entity
     
     public void onDead()
     {
-        GlobalManager.instance.PlayerRespawn();
+        //GlobalManager.instance.PlayerRespawn();
+        GlobalManager.instance.deadmenuController.Show();
     }
 }

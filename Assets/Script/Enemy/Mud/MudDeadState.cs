@@ -13,12 +13,15 @@ public class MudDeadState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("MudDeath");
         
     }
 
     public override void Exit()
     {
         base.Exit();
+        AudioManager.instance.sfxSource.Stop();
     }
 
     public override void Update()

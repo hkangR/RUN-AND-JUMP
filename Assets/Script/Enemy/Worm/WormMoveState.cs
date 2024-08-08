@@ -12,12 +12,15 @@ public class WormMoveState : WormGroundState
     public override void Enter()
     {
         base.Enter();
+        AudioManager.instance.sfxSource = enemy.GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX("WormMove");
         stateTimer = enemy.patrolTime;
     }
 
     public override void Exit()
     {
         base.Exit();
+        AudioManager.instance.sfxSource.Stop();
     }
 
     public override void Update()
