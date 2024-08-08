@@ -25,19 +25,25 @@ public class BulletControl : MonoBehaviour
     private void Start()
     {
         rb.gravityScale = 0f;
-        originalPos = transform.position;
     }
 
     private void OnEnable()
     {
+        AimPlayer();
+        originalPos = transform.position;
+        // 启动协程，在五秒后销毁子弹
+        StartCoroutine(DestroyAfterDelay(3f));
+    }
+
+    public void AimPlayer()
+    {
+        //重新瞄准玩家
         transform.localPosition = Vector3.zero;
         player = GlobalManager.instance.player.gameObject;
         // 计算射向玩家的方向向量
         Vector3 shootDirection = (player.transform.position - originalPos).normalized;
 
         rb.velocity = shootDirection * bulletSpeed;
-        // 启动协程，在五秒后销毁子弹
-        StartCoroutine(DestroyAfterDelay(5f));
     }
 
 

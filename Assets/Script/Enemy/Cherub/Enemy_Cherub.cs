@@ -76,7 +76,14 @@ public class Enemy_Cherub : Enemy
         {
             Debug.Log("Create");
             
-            ObjectPool.instance.GetObject(PhotonBullet[i], transform);
+            GameObject obj = ObjectPool.instance.GetObject(PhotonBullet[i], transform);
+            
+            if(obj.GetComponent<BulletControl>()!=null)
+            {
+                Debug.Log("Reaim");
+                obj.GetComponent<BulletControl>().AimPlayer();
+            }
+
             yield return new WaitForSeconds(0.5f);
         }
         isCreatingBullet = false;

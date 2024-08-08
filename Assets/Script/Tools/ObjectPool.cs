@@ -32,6 +32,8 @@ public class ObjectPool : MonoBehaviour
         GameObject obj;
         if (objectPool.TryGetValue(prefabName, out var queue) && queue.TryDequeue(out obj))
         {
+            obj.transform.SetParent(parentTransform);
+            obj.transform.localPosition = Vector3.zero;
             obj.SetActive(true);
             return obj;
         }
