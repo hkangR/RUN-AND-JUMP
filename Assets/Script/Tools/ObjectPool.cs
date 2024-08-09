@@ -40,6 +40,26 @@ public class ObjectPool : MonoBehaviour
 
         return null; 
     }
+    public GameObject GetObject(GameObject prefab,Vector3 position ,Transform parentTransform)
+    {
+        string prefabName = prefab.name;
+        if (!objectPool.ContainsKey(prefabName) || objectPool[prefabName].Count == 0)
+        {
+            GameObject newObject = Instantiate(prefab,position,Quaternion.identity, parentTransform);
+            PushObject(newObject);
+        }
+
+        GameObject obj;
+        if (objectPool.TryGetValue(prefabName, out var queue) && queue.TryDequeue(out obj))
+        {
+            obj.transform.SetParent(parentTransform);
+            obj.transform.localPosition = Vector3.zero;
+            obj.SetActive(true);
+            return obj;
+        }
+
+        return null; 
+    }
 
     public void PushObject(GameObject prefab)
     {

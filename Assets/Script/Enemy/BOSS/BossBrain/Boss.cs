@@ -16,12 +16,15 @@ public class Boss : Enemy
     
     public BossIdleState idleState { get; private set; } //检测到玩家激活Boss,双手进入攻击状态，同时作为过度状态
     public BulletSkillState bulletSkillState { get; private set; } //弹幕攻击状态
+    
+    public BossDeathState deathState { get; private set; } 
     protected override void Awake()
     {
         base.Awake();
         //enemyProperty = GetComponent<EnemyProperty>();
         
         idleState = new BossIdleState(this, stateMachine, "Idle", this);
+        deathState = new BossDeathState(this, stateMachine, "Die", this);
         bulletSkillState = new BulletSkillState(this, stateMachine, "BulletSkill", this);
         
     }
@@ -40,9 +43,12 @@ public class Boss : Enemy
         isCreatingBullet = true;
         for (int i = 0; i < photonBullet.Count; i++)
         {
-            Instantiate(photonBullet[i], transform.position, Quaternion.identity, transform);
-            Instantiate(photonBullet[i], transform.position + bulletOffset,Quaternion.identity, transform);
-            Instantiate(photonBullet[i], transform.position - bulletOffset,Quaternion.identity, transform);
+            GameObject obj1 = ObjectPool.instance.GetObject(photonBullet[i], transform.position, transform);
+            GameObject obj2 = ObjectPool.instance.GetObject(photonBullet[i], transform.position + bulletOffset, transform);
+            GameObject obj3 = ObjectPool.instance.GetObject(photonBullet[i], transform.position - bulletOffset, transform);
+            obj1.GetComponent<BulletControl>().AimPlayer();
+            obj2.GetComponent<BulletControl>().AimPlayer();
+            obj3.GetComponent<BulletControl>().AimPlayer();
             yield return new WaitForSeconds(0.8f);
         }
         

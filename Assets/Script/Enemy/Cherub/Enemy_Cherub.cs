@@ -80,7 +80,6 @@ public class Enemy_Cherub : Enemy
             
             if(obj.GetComponent<BulletControl>()!=null)
             {
-                Debug.Log("Reaim");
                 obj.GetComponent<BulletControl>().AimPlayer();
             }
 

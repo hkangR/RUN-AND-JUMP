@@ -19,11 +19,6 @@ public class BossController : MonoBehaviour
         boss = GetComponentInChildren<Boss>();
         bossHands = GetComponentsInChildren<BossHand>();
         
-        /*boss.stateMachine.Initialize(boss.idleState);
-        foreach (BossHand hand in bossHands)
-        {
-            hand.stateMachine.Initialize(hand.idleState);
-        }*/
     }
 
     private void Start()
