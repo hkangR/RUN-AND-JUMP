@@ -9,7 +9,7 @@ public class Boss : Enemy
     public bool isBusy = false;
     [SerializeField] public bool isCreatingBullet;
     [SerializeField] public float shootDuration;
-    [SerializeField] public List<GameObject> photonBullet;
+    [SerializeField] private List<GameObject> photonBullet;
     [SerializeField] private Vector3 bulletOffset;
     
     [SerializeField] public bool isSecondStage;
@@ -70,5 +70,10 @@ public class Boss : Enemy
         {
             //boss死亡
         }
+    }
+    
+    public override void TakeDamage(float damage)
+    {
+        TakeDamage(damage);
     }
 }

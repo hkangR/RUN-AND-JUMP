@@ -5,28 +5,62 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 using UnityEngine.XR;
 using Random = UnityEngine.Random;
 
 public class BossController : MonoBehaviour
 {
-    [SerializeField] private Boss boss;
-    [SerializeField] private BossHand[] bossHands;
-    [SerializeField] private GameObject bossHealthBar;
-    [SerializeField] private float showTime = 50f;
-
+     private Boss boss;
+     private BossHand[] bossHands;
+     private Material bossMat;
+     private Material bossLeftHandMat;
+     private Material bossRightHandMat;
+     [SerializeField] private float showTime;
+     [SerializeField] private GameObject bossHealthBar;
 
     private void Awake()
     {
         boss = GetComponentInChildren<Boss>();
         bossHands = GetComponentsInChildren<BossHand>();
+        bossMat = GetComponentInChildren<Renderer>().material;
+        bossLeftHandMat = bossHands[0].GetComponentInChildren<Renderer>().material;
+        bossRightHandMat = bossHands[1].GetComponentInChildren<Renderer>().material;
     }
     
     private void OnEnable()
     {
+        StartCoroutine(FadeOutAndScale());
+    }
+    
+    private IEnumerator FadeOutAndScale()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < showTime)
+        {
+            float progress = elapsedTime / showTime;
+
+            // Alpha blending from 1 to 0
+            float newAlpha = Mathf.Lerp(1f, 0f, progress);
+            bossMat.SetFloat("_Alpha", newAlpha);
+            bossLeftHandMat.SetFloat("_Alpha", newAlpha);
+            bossRightHandMat.SetFloat("_Alpha", newAlpha);
+
+            // ScaleFactor from 6 to 0.09
+            float newScale = Mathf.Lerp(6f, 0.09f, progress);
+            bossMat.SetFloat("_Scale", newScale);
+            bossLeftHandMat.SetFloat("_Scale", newScale);
+            bossRightHandMat.SetFloat("_Scale", newScale);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 确保透明度和缩放完全设置到最终值
+        bossMat.SetFloat("_Alpha", 0f);
+        bossMat.SetFloat("_Scale", 0.09f);
         bossHealthBar.SetActive(true);
-        //alpha blending from 1 to 0
-        //ScaleFactor from 6 to 0.09
+        showTime = 0f;//演出结束
     }
     
     private void Update()

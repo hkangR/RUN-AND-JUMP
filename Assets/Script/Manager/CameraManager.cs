@@ -13,6 +13,8 @@ public class CameraManager : MonoBehaviour
     public GameObject virtualCamera1;
     public GameObject virtualCamera2;
 
+    [SerializeField] private GameObject renderResults;
+
     private void Awake()
     {
         if (instance != null)

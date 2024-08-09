@@ -8,15 +8,15 @@ public class BossHealthBarUI : MonoBehaviour
 {    
     public static BossHealthBarUI Instance { get; private set; }
     
-    [SerializeField] public Image progress;
-    [SerializeField] public Image bg;
-    [SerializeField] public Sprite stageOnePrpogress;
-    [SerializeField] public Sprite stageTwoPrpogress;
+    [SerializeField] private Image progress;
+    [SerializeField] private Image bg;
+    [SerializeField] private Sprite stageOnePrpogress;
+    [SerializeField] private Sprite stageTwoPrpogress;
     
     public Enemy enemy;
 
-    [SerializeField] public float currentHealth;
-    [SerializeField] public float maxHealth;
+    private float currentHealth;
+    private float maxHealth;
 
     private bool isStageTwo = false;
 
@@ -34,13 +34,7 @@ public class BossHealthBarUI : MonoBehaviour
         maxHealth = enemy.GetComponent<EnemyProperty>().maxHP;
         UpdateHealthBar();
     }
-
-    //public void Update()
-    //{
-    //     currentHealth = enemy.GetComponent<EnemyProperty>().hpValue;
-    //    maxHealth = enemy.GetComponent<EnemyProperty>().maxHP;
-    //    UpdateHealthBar();
-    //}
+    
 
     public void UpdateHealthBar()
     {
