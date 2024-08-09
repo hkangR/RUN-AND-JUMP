@@ -23,6 +23,10 @@ public class Enemy : Entity
     public float attackCooldown;
     [HideInInspector] public float lastTimeAttack;
     
+    [SerializeField] public Material material = null;
+    [SerializeField] public Material originalMaterial = null;
+    
+    
     protected EnemyProperty enemyProperty;
     
     public EnemyStateMachine stateMachine { get; private set; }
@@ -36,6 +40,9 @@ public class Enemy : Entity
 
         defaultMoveSpeed = moveSpeed;
         enemyProperty = GetComponent<EnemyProperty>();
+
+        originalMaterial = GetComponentInChildren<Renderer>().material;
+        material = originalMaterial;
     }
     
     protected override void Start()

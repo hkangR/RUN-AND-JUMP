@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class Enemy_Fatty : Enemy
 {
-    [SerializeField] public float hitSpeed;
     [SerializeField] public bool isHitting;
+    [SerializeField] public float hitSpeed;
     [SerializeField] public float jumpSpeed;
     [SerializeField] public float jumpDistance;
     [SerializeField] public float floatTime;
+    
     
     #region States
     public FattyIdleState idleState { get; private set; }
@@ -28,6 +29,7 @@ public class Enemy_Fatty : Enemy
         jumpState = new FattyJumpState(this, stateMachine, "Jump", this);
         fallState = new FattyFallState(this, stateMachine, "Fall", this);
         deadState = new FattyDeadState(this, stateMachine, "Die", this);
+
     }
     protected override void Start()
     {

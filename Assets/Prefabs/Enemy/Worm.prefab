@@ -40,7 +40,7 @@ Transform:
   - {fileID: 8490820812059434806}
   - {fileID: 6294096624207321825}
   m_Father: {fileID: 0}
-  m_RootOrder: -2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4204493398538011475
 Rigidbody2D:
@@ -149,6 +149,8 @@ MonoBehaviour:
   attackDistance: 0.5
   attackCooldown: 0
   lastTimeAttack: 0
+  material: {fileID: 0}
+  originalMaterial: {fileID: 0}
   trackDistance: 7
   patrolTime: 2
 --- !u!114 &7692160849013101212
@@ -378,7 +380,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b035f29e1b8470b4d9b12c8a842ec14f, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

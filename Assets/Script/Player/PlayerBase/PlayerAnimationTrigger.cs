@@ -28,7 +28,6 @@ public class PlayerAnimationTrigger : MonoBehaviour
         {
             if(hit.GetComponent<Enemy>() != null)
             {
-                Debug.Log("Hit Enemy");
                 Enemy enemy = hit.GetComponent<Enemy>();
                 enemy.StartCoroutine("FlashFX");
                 player.CauseDamage(enemy);

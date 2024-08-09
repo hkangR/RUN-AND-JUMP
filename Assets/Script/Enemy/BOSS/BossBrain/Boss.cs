@@ -7,7 +7,9 @@ using UnityEngine;
 public class Boss : Enemy
 {
     public bool isBusy = false;
-    [SerializeField] public bool isCreatingBullet;
+    public bool isDead = false;
+    public float bossDeathTime { get; private set; } = 2f;
+    public bool isCreatingBullet { get; private set; } = false;
     [SerializeField] public float shootDuration;
     [SerializeField] private List<GameObject> photonBullet;
     [SerializeField] private Vector3 bulletOffset;
@@ -67,13 +69,9 @@ public class Boss : Enemy
             enemyProperty.Revive(0.5f);
         }
         else
-        {
-            //boss死亡
+        { 
+            stateMachine.ChangeState(deathState);
         }
     }
     
-    public override void TakeDamage(float damage)
-    {
-        TakeDamage(damage);
-    }
 }

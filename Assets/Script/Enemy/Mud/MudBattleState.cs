@@ -9,6 +9,8 @@ public class MudBattleState : EnemyState
 
     private int moveDir;
     
+    private bool canStartCoroutine = false;
+    
     public MudBattleState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, Enemy_Mud enemy) : base(enemyBase, stateMachine, animBoolName)
     {
         this.enemy = enemy;
@@ -46,11 +48,13 @@ public class MudBattleState : EnemyState
             stateTimer = enemy.battleTime;
             if(enemy.IsPlayerDetected().distance < enemy.attackDistance)
             {
-                if(CanAttack())
-                    stateMachine.ChangeState(enemy.attackState);
+                if (CanAttack() && !canStartCoroutine)
+                {
+                    enemy.StartCoroutine(ReadyToAttack());
+                }
+
               
             }
-            
         }
         else
         {
@@ -71,7 +75,17 @@ public class MudBattleState : EnemyState
         
         enemy.SetVelocity(enemy.rushSpeed * moveDir, rb.velocity.y);
     }
-
+    
+    private IEnumerator ReadyToAttack()
+    {
+        canStartCoroutine = true;
+        enemy.material.SetColor("_HologramStripeColor",new Color(1,0,0));
+        yield return new WaitForSeconds(0.3f);
+        enemy.material.SetColor("_HologramStripeColor",new Color(0,1,1));
+        canStartCoroutine = false;
+        stateMachine.ChangeState(enemy.attackState);
+    }
+    
     private bool CanAttack()
     {
         if (Time.time >= enemy.lastTimeAttack + enemy.attackCooldown)

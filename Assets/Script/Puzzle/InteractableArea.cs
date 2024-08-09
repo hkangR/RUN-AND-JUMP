@@ -106,6 +106,7 @@ public class InteractableArea : MonoBehaviour
                 GlobalManager.instance.player.canDash = true;
                 break;
         }
+        player.RestoreFullHealth();
         
         itemGetHintController.ShowUI(3f, false);
         itemGetHintController.init(nameSentForShow, textSentForShow);

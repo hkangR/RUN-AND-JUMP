@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 6
   name: "\u751F\u547D\u6838\u5FC3"
-  description: "\u751F\u547D\u4E0A\u9650:+1"
+  description: "\u751F\u547D\u4E0A\u9650:+2"
   field: "\u672A\u77E5"
   itemType: 1
   propertyList:
   - propertyType: 0
-    value: 1
+    value: 2
   prefab: {fileID: 3743947585704446268, guid: 6e49aeedee4877a46bf923d99b0c6fad, type: 3}

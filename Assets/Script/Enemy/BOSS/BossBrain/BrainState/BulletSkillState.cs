@@ -28,11 +28,9 @@ public class BulletSkillState : EnemyState
     public override void Update()
     {
         base.Update();
-        Debug.Log("Bullet");
         //发射
         if (!enemy.isCreatingBullet)
         {
-            //Debug.Log("create");
             enemy.StartCoroutine("CreatePhotonBullet");
             
         }

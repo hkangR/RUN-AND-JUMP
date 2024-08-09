@@ -65,8 +65,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlitchAmount: 16
-    - _GlitchSize: 2.78
+    - _GlitchAmount: 0
+    - _GlitchSize: 2.6
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1

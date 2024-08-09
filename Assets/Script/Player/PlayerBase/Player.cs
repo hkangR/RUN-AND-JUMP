@@ -100,7 +100,6 @@ public class Player : Entity
     
     protected override void Update()
     {
-        
         base.Update();
         stateMachine.currentState.Update();
         
@@ -110,12 +109,12 @@ public class Player : Entity
         
         foreach (var collider in jumpPlanes)
         {
-            if (collider != null)
+            if (collider)
             {
                 Physics2D.IgnoreCollision(cd, collider, rb.velocity.y > 0);
             }
         }
-        RestoreHealth();
+        AutoRestoreHealth();
     }
 
     
@@ -158,7 +157,7 @@ public class Player : Entity
 
 
     #region Player Property
-    private void RestoreHealth()//彩色区域回血
+    private void AutoRestoreHealth()//彩色区域回血
     {
         if(playerProperty.hpValue >= playerProperty.maxHP/2) return;
         if(getCurrentLayer.intersectionCount < 2) return;
@@ -171,6 +170,11 @@ public class Player : Entity
         }
         
     }
+    public void RestoreFullHealth()
+    {
+        playerProperty.AddProperty(PropertyType.HPValue, playerProperty.maxHP);
+    }
+    
     public void CauseDamage(Enemy enemy) 
     {
         //CameraManager.instance.virtualCamera.CameraShake();

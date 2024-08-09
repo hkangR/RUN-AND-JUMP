@@ -16,6 +16,7 @@ public class BossController : MonoBehaviour
      private Material bossMat;
      private Material bossLeftHandMat;
      private Material bossRightHandMat;
+     //[SerializeField] private GameObject bossRoomMask;//boss死亡时生成
      [SerializeField] private float showTime;
      [SerializeField] private GameObject bossHealthBar;
 
@@ -30,12 +31,29 @@ public class BossController : MonoBehaviour
     
     private void OnEnable()
     {
-        StartCoroutine(FadeOutAndScale());
+        StartCoroutine(FadeOutAndScale1());
     }
     
-    private IEnumerator FadeOutAndScale()
+    private IEnumerator FadeOutAndScale1()
     {
         float elapsedTime = 0f;
+        while (elapsedTime < showTime)
+        {
+            float progress = elapsedTime / showTime;
+
+            // ScaleFactor from 6 to 0.01
+            float newScale = Mathf.Lerp(6f, 0.01f, progress);
+            bossMat.SetFloat("_Scale", newScale);
+            bossLeftHandMat.SetFloat("_Scale", newScale);
+            bossRightHandMat.SetFloat("_Scale", newScale);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return 1.5f;
+        
+        elapsedTime = 0f;
         while (elapsedTime < showTime)
         {
             float progress = elapsedTime / showTime;
@@ -46,21 +64,16 @@ public class BossController : MonoBehaviour
             bossLeftHandMat.SetFloat("_Alpha", newAlpha);
             bossRightHandMat.SetFloat("_Alpha", newAlpha);
 
-            // ScaleFactor from 6 to 0.09
-            float newScale = Mathf.Lerp(6f, 0.09f, progress);
-            bossMat.SetFloat("_Scale", newScale);
-            bossLeftHandMat.SetFloat("_Scale", newScale);
-            bossRightHandMat.SetFloat("_Scale", newScale);
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         // 确保透明度和缩放完全设置到最终值
         bossMat.SetFloat("_Alpha", 0f);
-        bossMat.SetFloat("_Scale", 0.09f);
+        bossMat.SetFloat("_Scale", 0.01f);
         bossHealthBar.SetActive(true);
         showTime = 0f;//演出结束
+
     }
     
     private void Update()
@@ -69,6 +82,15 @@ public class BossController : MonoBehaviour
         if (showTime <= 0)
         {
             BossAttackControl();
+        }
+
+        if (boss.isDead)
+        {
+            foreach (var hand in bossHands)
+            {
+                //boss死亡后，隐藏手
+                hand.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -94,6 +116,13 @@ public class BossController : MonoBehaviour
         //二阶段疯狂攻击
         else if(boss.isSecondStage)
         {
+            if (boss.isDead)
+            {
+                //Instantiate(bossRoomMask,transform.position, Quaternion.identity);
+                GlobalManager.instance.victorymenuController.Show();
+                return;
+            }
+            
             if(!boss.isBusy)
                 boss.stateMachine.ChangeState((boss.bulletSkillState));
 
@@ -104,6 +133,7 @@ public class BossController : MonoBehaviour
                     hand.autoAttack = true;
                 }
             }
+
 
         }
     }

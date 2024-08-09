@@ -15,18 +15,23 @@ public class BossDeathState : EnemyState
     public override void Enter()
     {
         //播放动画
-        base.Enter();//没素材我就不播了
+        base.Enter();
+        enemy.isBusy = true;
+        stateTimer = enemy.bossDeathTime;
     }
 
     public override void Exit()
     {
         base.Exit();
-        //enemy.isBusy = false;
+
     }
 
     public override void Update()
     {
         base.Update();
-        
+        if (stateTimer < 0)
+        {
+            enemy.isDead = true;
+        }
     }
 }

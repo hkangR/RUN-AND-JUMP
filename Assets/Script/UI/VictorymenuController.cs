@@ -11,6 +11,8 @@ public class VictorymenuController : MonoBehaviour
     public GameObject menuUI;
     
     public float fadeDuration = 2.0f;
+
+    private bool triggered = false;
     
     public void Start()
     {
@@ -23,13 +25,17 @@ public class VictorymenuController : MonoBehaviour
 
     public void Show()
     {
-        blackLayer.transform.position = new Vector3(blackLayer.transform.position.x, blackLayer.transform.position.y - 2000, blackLayer.transform.position.z);
-        menuUI.transform.position = new Vector3(menuUI.transform.position.x, menuUI.transform.position.y - 2000, menuUI.transform.position.z);
-        
-        if (blackLayer != null && menuUI != null)
+        if (!triggered)
         {
-            DeactivateOtherChildren();
-            StartCoroutine(FadeInAndOut());
+            blackLayer.transform.position = new Vector3(blackLayer.transform.position.x, blackLayer.transform.position.y - 2000, blackLayer.transform.position.z);
+            menuUI.transform.position = new Vector3(menuUI.transform.position.x, menuUI.transform.position.y - 2000, menuUI.transform.position.z);
+        
+            if (blackLayer != null && menuUI != null)
+            {
+                DeactivateOtherChildren();
+                StartCoroutine(FadeInAndOut());
+                triggered = true;
+            }   
         }
     }
 

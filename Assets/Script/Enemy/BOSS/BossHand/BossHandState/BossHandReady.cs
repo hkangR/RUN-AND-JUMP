@@ -16,7 +16,6 @@ public class BossHandReady : EnemyState
     {
         // 播放动画
         base.Enter();
-        Debug.Log("enter");
         enemy.isBusy = true;
         stateTimer = enemy.floatTime;
         enemy.transform.position += enemy.hitOffset; // 手掌悬浮位置

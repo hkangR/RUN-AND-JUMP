@@ -26,6 +26,8 @@ public class GlobalManager : MonoBehaviour
         {
             instance = this;
         }
+        jumpPlanes = new List<Collider2D>(GameObject.FindGameObjectsWithTag("jumpPlane").Select(go => go.GetComponent<Collider2D>()));
+
     }
     
     private void Start()
@@ -43,7 +45,6 @@ public class GlobalManager : MonoBehaviour
             { "Vertical", "Vertical" }
         };
         
-        jumpPlanes = new List<Collider2D>(GameObject.FindGameObjectsWithTag("jumpPlane").Select(go => go.GetComponent<Collider2D>()));
     }
     
     //暂时先放在这
