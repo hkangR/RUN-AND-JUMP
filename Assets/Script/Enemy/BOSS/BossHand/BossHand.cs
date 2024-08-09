@@ -13,13 +13,13 @@ public class BossHand : Enemy
     [SerializeField] private float groundedTime;
     [SerializeField] private Vector3 originPos;//初始位置
     
-    [SerializeField] public bool isHitting;
-    [SerializeField] public Vector3 hitOffset;
+    [SerializeField] public Vector3 hitOffset = new Vector3();
     [SerializeField] private float hitSpeed;
+    public bool isHitting { get; private set; }
     
     [SerializeField] public float floatSpeed;//左右浮动速度
     [SerializeField] public float floatTime;//左右浮动时间
-    public float shakeDuration = 0.5f; // 摇晃持续时间
+    [SerializeField] public float shakeDuration = 0.5f; // 摇晃持续时间
     
     [SerializeField] public float hammerAnimationTime;
     
@@ -29,6 +29,8 @@ public class BossHand : Enemy
     public BossHandHitState hitState { get; private set; }
     public BossHandHammer hammerState { get; private set; }
     #endregion
+
+    private Vector3 hitPos;
     
     protected override void Awake()
     {
@@ -46,6 +48,7 @@ public class BossHand : Enemy
         rb.gravityScale = 0f;//boss不受重力影响
         originPos = transform.position;
         stateMachine.Initialize(idleState);
+        hitPos = groundCheck.position;
     }
     
     public IEnumerator Hit(Vector3 player, bool isHammer = false)
@@ -53,7 +56,7 @@ public class BossHand : Enemy
         
         isHitting = true;
         DrawDamageArea();
-        Vector3 targetPos = new Vector3(transform.position.x, player.y, transform.position.z);
+        Vector3 targetPos = new Vector3(transform.position.x, hitPos.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetPos, hitSpeed * Time.deltaTime);//拍击
         
         if (Vector3.Distance(transform.position,targetPos) < 0.1f)

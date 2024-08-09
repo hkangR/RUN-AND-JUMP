@@ -31,6 +31,8 @@ public class BossController : MonoBehaviour
     
     private void OnEnable()
     {
+        AudioManager.instance.musicSource = GameObject.Find("BossRoom").GetComponent<AudioSource>();
+        AudioManager.instance.PlayMusic("BossBGM");
         StartCoroutine(FadeOutAndScale1());
     }
     
@@ -50,7 +52,7 @@ public class BossController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
+        
         yield return 1.5f;
         
         elapsedTime = 0f;

@@ -10,11 +10,11 @@ public class Boss : Enemy
     public bool isDead = false;
     public float bossDeathTime { get; private set; } = 2f;
     public bool isCreatingBullet { get; private set; } = false;
-    [SerializeField] public float shootDuration;
+    [SerializeField] public float shootDuration = 2f;
     [SerializeField] private List<GameObject> photonBullet;
     [SerializeField] private Vector3 bulletOffset;
     
-    [SerializeField] public bool isSecondStage;
+    [SerializeField] public bool isSecondStage = false;
     
     public BossIdleState idleState { get; private set; } //检测到玩家激活Boss,双手进入攻击状态，同时作为过度状态
     public BulletSkillState bulletSkillState { get; private set; } //弹幕攻击状态

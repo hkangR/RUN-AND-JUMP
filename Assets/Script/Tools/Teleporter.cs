@@ -67,6 +67,10 @@ public class Teleporter : MonoBehaviour
 
     public void teleport()
     {
+        if (AudioManager.instance.musicSource)
+        {
+            AudioManager.instance.musicSource.Stop();
+        }
         StartCoroutine(WaitForStop());
         CameraManager.instance.SwitchToCamera2();
         //StartCoroutine(WaitForStop());

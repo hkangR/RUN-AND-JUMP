@@ -95,6 +95,9 @@ public class Player : Entity
         
         // 查找场景中所有具有目标标签的对象的Collider组件
         jumpPlanes = GlobalManager.instance.jumpPlanes;
+        
+        AudioManager.instance.musicSource = GameObject.Find("Camera1").GetComponent<AudioSource>();
+        AudioManager.instance.PlayMusic("BGM");
 
     }
     

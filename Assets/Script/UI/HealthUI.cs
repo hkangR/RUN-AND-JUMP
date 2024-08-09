@@ -33,6 +33,7 @@ public class HealthUI : MonoBehaviour
 
     private void UpdateHearts() 
     {
+        
         foreach (Transform child in transform) 
         {
             Destroy(child.gameObject);
@@ -43,7 +44,10 @@ public class HealthUI : MonoBehaviour
             GameObject heartObj = Instantiate(heartPrefab, transform);
             Heart heart = heartObj.GetComponent<Heart>();
             hearts.Add(heart);
-
+            if (!heart)
+            {
+                return;
+            }
             if (i * 2 + 1 < currentHealth) 
             {
                 heart.SetHeartState(2);

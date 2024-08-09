@@ -80,13 +80,6 @@ public class Enemy_Mud : Enemy
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), player.GetComponent<Collider2D>(), false);
     }
     
-    /*public IEnumerator ReadyToAttack()
-    {
-        material.SetColor("_HologramStripeColor",new Color(1,0,0));
-        yield return new WaitForSeconds(0.5f);
-        material = originalMaterial;
-        stateMachine.ChangeState(attackState);
-    }*/
 
 
 }
