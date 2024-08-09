@@ -120,8 +120,10 @@ public class BossController : MonoBehaviour
         {
             if (boss.isDead)
             {
+                
                 //Instantiate(bossRoomMask,transform.position, Quaternion.identity);
-                GlobalManager.instance.victorymenuController.Show();
+                StartCoroutine(BossDieShow());
+                //GlobalManager.instance.victorymenuController.Show();
                 return;
             }
             
@@ -138,5 +140,12 @@ public class BossController : MonoBehaviour
 
 
         }
+    }
+
+    private IEnumerator BossDieShow()
+    {
+        CameraManager.instance.SwitchToCamera3();
+        yield return new WaitForSeconds(2f);
+        GlobalManager.instance.victorymenuController.Show();
     }
 }

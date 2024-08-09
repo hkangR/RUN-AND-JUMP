@@ -12,6 +12,7 @@ public class CameraManager : MonoBehaviour
 
     public GameObject virtualCamera1;
     public GameObject virtualCamera2;
+    public GameObject virtualCamera3;
 
     [SerializeField] private GameObject renderResults;
 
@@ -36,6 +37,7 @@ public class CameraManager : MonoBehaviour
     {
         virtualCamera1.SetActive(true);   // 激活目标相机
         virtualCamera2.SetActive(false);  // 禁用其他相机
+        virtualCamera3.SetActive(false);  // 禁用其他相机
         virtualCamera = virtualCamera1.GetComponent<VirtualCamera>();
     }
 
@@ -43,6 +45,14 @@ public class CameraManager : MonoBehaviour
     {
         virtualCamera1.SetActive(false);  // 禁用其他相机
         virtualCamera2.SetActive(true);   // 激活目标相机
+        virtualCamera3.SetActive(false);  // 禁用其他相机
         virtualCamera = virtualCamera2.GetComponent<VirtualCamera>();
+    }
+
+    public void SwitchToCamera3()//use after Boss BOOM
+    {
+        virtualCamera1.SetActive(false);  // 禁用其他相机
+        virtualCamera2.SetActive(false);   // 激活目标相机
+        virtualCamera3.SetActive(true);  // 禁用其他相机
     }
 }
