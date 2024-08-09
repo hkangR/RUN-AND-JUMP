@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractableArea : MonoBehaviour
 {
     private bool playerInArea = false;
+    private bool firstHint = false;
 
     public int unlockIndex = 0;
     public string nameSentForShow = "";
@@ -24,37 +25,35 @@ public class InteractableArea : MonoBehaviour
 
     void Update()
     {
-        if (playerInArea)
+        if (playerInArea && !firstHint)
         {
-            if (ImagePrefab != null && iconSpawnPoint != null)
+            if (layerRequired)
             {
-                if (layerRequired)
+                if (getCurrentLayer.intersectionCount >= 2)
                 {
-                    if (getCurrentLayer.intersectionCount >= 2)
-                    {
-                        floatingImageController.floatingImagePrefab = ImagePrefab;
-                        floatingImageController.SpawnFloatingImage(iconSpawnPoint);   
-                    }
-                }
-                else
-                {
-                    floatingImageController.floatingImagePrefab = ImagePrefab;
-                    floatingImageController.SpawnFloatingImage(iconSpawnPoint);   
+                    firstHint = true;
+                    imageSpawn();
                 }
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            else
             {
-                if (layerRequired)
-                {
-                    if (getCurrentLayer.intersectionCount >= 2)
-                    {
-                        TriggerEffect();
-                    }
-                }
-                else
+                firstHint = true;
+                imageSpawn();
+            }
+        }
+        
+        if (playerInArea && Input.GetKeyDown(KeyCode.E))
+        {
+            if (layerRequired)
+            {
+                if (getCurrentLayer.intersectionCount >= 2)
                 {
                     TriggerEffect();
                 }
+            }
+            else
+            {
+                TriggerEffect();
             }
         }
     }
@@ -64,6 +63,20 @@ public class InteractableArea : MonoBehaviour
         if (collision.CompareTag("Player")) 
         {
             playerInArea = true;
+            if (ImagePrefab != null && iconSpawnPoint != null)
+            {
+                if (layerRequired)
+                {
+                    if (getCurrentLayer.intersectionCount >= 2)
+                    {
+                        imageSpawn();
+                    }
+                }
+                else
+                {
+                    imageSpawn();
+                }
+            }
         }
     }
 
@@ -73,6 +86,12 @@ public class InteractableArea : MonoBehaviour
         {
             playerInArea = false;
         }
+    }
+    
+    public void imageSpawn()
+    {
+        floatingImageController.floatingImagePrefab = ImagePrefab;
+        floatingImageController.SpawnFloatingImage(iconSpawnPoint);   
     }
 
     private void TriggerEffect()

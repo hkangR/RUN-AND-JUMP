@@ -10,25 +10,37 @@ using Random = UnityEngine.Random;
 
 public class BossController : MonoBehaviour
 {
-    [SerializeField] public Boss boss;
-    [SerializeField] public BossHand[] bossHands;
+    [SerializeField] private Boss boss;
+    [SerializeField] private BossHand[] bossHands;
+    [SerializeField] private GameObject bossHealthBar;
+    [SerializeField] private float showTime = 50f;
 
 
     private void Awake()
     {
         boss = GetComponentInChildren<Boss>();
         bossHands = GetComponentsInChildren<BossHand>();
-        
     }
-
-    private void Start()
+    
+    private void OnEnable()
     {
-        
+        bossHealthBar.SetActive(true);
+        //alpha blending from 1 to 0
+        //ScaleFactor from 6 to 0.09
     }
-
+    
     private void Update()
     {
-        if (!boss.isSecondStage && !boss.isBusy && !bossHands[0].isBusy)
+        showTime -= Time.deltaTime;
+        if (showTime <= 0)
+        {
+            BossAttackControl();
+        }
+    }
+
+    private void BossAttackControl()
+    {
+        if(!boss.isSecondStage && !boss.isBusy && !bossHands[0].isBusy)
         {
             int random = Random.Range(0, 2);
             switch (random)//选择一种攻击方式

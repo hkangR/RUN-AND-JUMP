@@ -35,6 +35,7 @@ public class VirtualCamera : MonoBehaviour
     }
     
     
+    
     public void CameraShake()
     {
         if (noiseProfile != null)

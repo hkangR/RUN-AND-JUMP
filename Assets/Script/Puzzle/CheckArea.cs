@@ -19,14 +19,7 @@ public class CheckArea : MonoBehaviour
             TriggerEffect();
         }
     }
-
-    //private void OnTriggerExit2D(Collider2D collision) 
-    //{
-    //    if (controlOrMap && collision.CompareTag("Player"))
-    //    {
-    //       itemGetHintController.HideC();
-    //    }
-    //}
+    
 
     private void TriggerEffect()
     {

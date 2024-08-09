@@ -13,7 +13,6 @@ public class BossHand : Enemy
     [SerializeField] private float groundedTime;
     [SerializeField] private Vector3 originPos;//初始位置
     
-    [SerializeField] public float yOffset;
     [SerializeField] public bool isHitting;
     [SerializeField] public Vector3 hitOffset;
     [SerializeField] private float hitSpeed;
@@ -34,7 +33,6 @@ public class BossHand : Enemy
     protected override void Awake()
     {
         base.Awake();
-        //enemyProperty = GetComponent<EnemyProperty>();
         idleState = new BossHandIdleState(this, stateMachine, "RightIdle", this);
         ready = new BossHandReady(this, stateMachine, "RightReady", this);
         hitState = new BossHandHitState(this, stateMachine, "RightHit", this);

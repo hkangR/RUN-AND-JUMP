@@ -15,13 +15,11 @@ public class Player : Entity
     
     [Space]
     public bool canMakeMask;
-    [SerializeField] public GameObject maskFX;
     [SerializeField] public GameObject mask;
     [SerializeField] public Transform attackTransform;
     [SerializeField] public Vector3 attackOffset = new Vector3(0.7f, 0, 0);
     
     [Header("Attack details")]
-    public float counterAttackDuration = 0.2f;
     public Vector2[] attackMovement;
     public float beAttackForce = 5f;
     public bool canBeAttacked = true;
@@ -29,7 +27,6 @@ public class Player : Entity
     [Header("Move Info")] 
     [SerializeField] public float moveSpeed = 8f;
     [SerializeField] public float jumpForce = 12f;
-    [SerializeField] public float jumpPlaneDetectionDistance;
 
     [Header("Dash Info")]
     [SerializeField] public bool canDash;
@@ -37,12 +34,16 @@ public class Player : Entity
     [SerializeField] public float dashDuration;
     [SerializeField] public float dashTimer;
     [SerializeField] private float dashCooldown;
-
-    private List<Collider2D> jumpPlanes;
-
     public float dashDir { get; private set; }
+
+    private GetCurrentLayer getCurrentLayer;
+    [SerializeField]private float restoreCooldown = 3f;//彩色区域回血时间
+    private float restoreTimer;//彩色区域回血计时器
     
+    private List<Collider2D> jumpPlanes;
     private PlayerProperty playerProperty;
+    
+    
     public bool hasAb3 = false;
     
     #region States
@@ -87,7 +88,10 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+        restoreTimer = restoreCooldown;
         stateMachine.Initialize(idleState);
+
+        getCurrentLayer = GetComponent<GetCurrentLayer>();
         
         // 查找场景中所有具有目标标签的对象的Collider组件
         jumpPlanes = GlobalManager.instance.jumpPlanes;
@@ -111,9 +115,9 @@ public class Player : Entity
                 Physics2D.IgnoreCollision(cd, collider, rb.velocity.y > 0);
             }
         }
-        
-        
+        RestoreHealth();
     }
+
     
     //有时充当lock作用，主要在Attack中
     public IEnumerator BusyFor(float seconds)
@@ -143,13 +147,30 @@ public class Player : Entity
             stateMachine.ChangeState(dashState);
         }
     }
-    
 
     public override void Die() {
         stateMachine.ChangeState(deathState);
     }
-    
-    
+    public void onDead()
+    {
+        GlobalManager.instance.deadmenuController.Show();
+    }
+
+
+    #region Player Property
+    private void RestoreHealth()//彩色区域回血
+    {
+        if(playerProperty.hpValue >= playerProperty.maxHP/2) return;
+        if(getCurrentLayer.intersectionCount < 2) return;
+        
+        restoreTimer -= Time.deltaTime;
+        if (restoreTimer <= 0)
+        {
+            playerProperty.AddProperty(PropertyType.HPValue, playerProperty.maxHP * 0.1f);
+            restoreTimer = restoreCooldown;
+        }
+        
+    }
     public void CauseDamage(Enemy enemy) 
     {
         //CameraManager.instance.virtualCamera.CameraShake();
@@ -174,12 +195,10 @@ public class Player : Entity
         }
         else
         {
-            /*StartCoroutine("FlashFX");
-            //我们要保留一点Bug，这样玩家才能知道我们的游戏叫Defeat-Bug
-            rb.velocity = new Vector2(rb.velocity.x, beAttackForce);//笑死，连续攻击能被打上天*/
             stateMachine.ChangeState(getHitState);
         }
     }
+    #endregion
 
     //直接使用接触到的物件
     public void OnCollisionEnter2D(Collision2D collision) 
@@ -207,7 +226,6 @@ public class Player : Entity
         
     }
     
-
     //使用物体
     public void UseItem(ItemSO itemSO) 
     {
@@ -224,19 +242,5 @@ public class Player : Entity
                 break;
         }
     }
-
-    public IEnumerator CreateMaskFX()
-    {
-        GameObject maskMat =Instantiate(maskFX, attackCheck.position, Quaternion.identity);
-
-        yield return new WaitForSeconds(0.5f);
-        
-        Destroy(maskMat);
-    }
     
-    public void onDead()
-    {
-        //GlobalManager.instance.PlayerRespawn();
-        GlobalManager.instance.deadmenuController.Show();
-    }
 }
